@@ -727,7 +727,9 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
   var soundBtn = document.getElementById('soundBtn');
   bgm.volume = 0.15;
   function tryPlay(){ if (state.soundOn) bgm.play().catch(function(){}); }
-  tryPlay();
+  // No play() on load. Autoplay is blocked until a gesture anyway, so calling
+  // it here only made the browser pull the whole track down for nothing - and
+  // opening the cover is itself the gesture, so nothing is lost by waiting.
   var unlock = function(){ tryPlay(); document.removeEventListener('pointerdown', unlock); };
   document.addEventListener('pointerdown', unlock);
   soundBtn.addEventListener('click', function(){
