@@ -108,7 +108,7 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 .gallery-half{height:230px;min-width:0}
 .gallery-tall{height:340px;min-width:0}
 .gallery-solo{height:560px;min-width:0}
-.gallery-viewport img{display:block;width:100%;height:100%;object-fit:cover;border-radius:2px}
+.gallery-viewport img{display:block;background:#e7e3dd;width:100%;height:100%;object-fit:cover;border-radius:2px}
 .gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.85);color:#4a453f;font-size:16px;cursor:pointer}
 .gallery-arrow.prev{left:-6px}
 .gallery-arrow.next{right:-6px}
@@ -342,8 +342,8 @@ as we celebrate the start of our life together.</p>
 900m from the main gate, about a 10-minute walk</span>
         </div>
         <div class="map-img-wrap">
-          <div class="lang-ko"><img src="images/map-ko.webp" alt="Map" width="1312" height="1199" loading="lazy" decoding="async"></div>
-          <div class="lang-en"><img src="images/map-en.webp" alt="Map" width="1310" height="1200" loading="lazy" decoding="async"></div>
+          <div class="lang-ko"><img data-src="images/map-ko.webp" alt="Map" width="1312" height="1199" loading="lazy" decoding="async"></div>
+          <div class="lang-en"><img data-src="images/map-en.webp" alt="Map" width="1310" height="1200" loading="lazy" decoding="async"></div>
         </div>
         <div class="map-links">
           <a href="https://naver.me/xprzdn50" target="_blank"><span class="lang-ko">네이버 지도</span><span class="lang-en">Naver Map</span></a>
@@ -375,21 +375,21 @@ as we celebrate the start of our life together.</p>
   <div class="center-pad" style="text-align:center">
     <div class="gallery-viewport" id="galleryViewport">
       <div class="gallery-grid two-col active" data-gpage="0">
-        <div class="gallery-full"><img src="images/g1.webp" alt="" width="1200" height="817" loading="lazy" decoding="async"></div>
-        <div class="gallery-half"><img src="images/g2.webp" alt="" width="700" height="975" loading="lazy" decoding="async"></div>
-        <div class="gallery-half"><img src="images/g3.webp" alt="" width="700" height="1029" loading="lazy" decoding="async"></div>
+        <div class="gallery-full"><img data-src="images/g1.webp" alt="" width="1200" height="817" loading="lazy" decoding="async"></div>
+        <div class="gallery-half"><img data-src="images/g2.webp" alt="" width="700" height="975" loading="lazy" decoding="async"></div>
+        <div class="gallery-half"><img data-src="images/g3.webp" alt="" width="700" height="1029" loading="lazy" decoding="async"></div>
       </div>
       <div class="gallery-grid split" data-gpage="1">
-        <div class="gallery-tall"><img src="images/g4.webp" alt="" width="700" height="1050" loading="lazy" decoding="async"></div>
-        <div class="gallery-tall"><img src="images/g5.webp" alt="" width="700" height="1050" loading="lazy" decoding="async"></div>
+        <div class="gallery-tall"><img data-src="images/g4.webp" alt="" width="700" height="1050" loading="lazy" decoding="async"></div>
+        <div class="gallery-tall"><img data-src="images/g5.webp" alt="" width="700" height="1050" loading="lazy" decoding="async"></div>
       </div>
       <div class="gallery-grid two-col" data-gpage="2">
-        <div class="gallery-full"><img src="images/g7.webp" alt="" width="872" height="581" loading="lazy" decoding="async"></div>
-        <div class="gallery-half"><img src="images/g8.webp" alt="" width="700" height="964" loading="lazy" decoding="async"></div>
-        <div class="gallery-half"><img src="images/g9.webp" alt="" width="700" height="1050" loading="lazy" decoding="async"></div>
+        <div class="gallery-full"><img data-src="images/g7.webp" alt="" width="872" height="581" loading="lazy" decoding="async"></div>
+        <div class="gallery-half"><img data-src="images/g8.webp" alt="" width="700" height="964" loading="lazy" decoding="async"></div>
+        <div class="gallery-half"><img data-src="images/g9.webp" alt="" width="700" height="1050" loading="lazy" decoding="async"></div>
       </div>
       <div class="gallery-grid" data-gpage="3" style="display:block">
-        <div class="gallery-solo"><img src="images/g10.webp" alt="" width="1000" height="1273" loading="lazy" decoding="async"></div>
+        <div class="gallery-solo"><img data-src="images/g10.webp" alt="" width="1000" height="1273" loading="lazy" decoding="async"></div>
       </div>
       <button class="gallery-arrow prev" id="galPrevBtn" aria-label="Previous">‹</button>
       <button class="gallery-arrow next" id="galNextBtn" aria-label="Next">›</button>
@@ -767,6 +767,41 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
   document.getElementById('mapCard').addEventListener('click', function(e){ e.stopPropagation(); });
   var parkingBody = document.getElementById('parkingBody');
   document.getElementById('parkingToggleBtn').addEventListener('click', function(){ parkingBody.classList.toggle('open'); });
+
+  // Deferred images: the gallery grids and the map popup live inside
+  // display:none, so loading="lazy" cannot measure them and the browser just
+  // fetches everything. Holding the URL in data-src and handing it over as the
+  // section comes near is the only thing that actually defers them. A plain
+  // rect check is used rather than IntersectionObserver so this also works
+  // when a section is off to the side in the paged layout.
+  (function(){
+    var MARGIN = 800;
+    function fill(scope){
+      scope.querySelectorAll('img[data-src]').forEach(function(img){
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      });
+    }
+    var pending = [].slice.call(pages).filter(function(s){ return s.querySelector('img[data-src]'); });
+    function check(){
+      if (!pending.length) return;
+      var vh = window.innerHeight, vw = window.innerWidth;
+      pending = pending.filter(function(s){
+        var r = s.getBoundingClientRect();
+        var near = r.top < vh + MARGIN && r.bottom > -MARGIN && r.left < vw + MARGIN && r.right > -MARGIN;
+        if (near){ fill(s); return false; }
+        return true;
+      });
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    pager.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    // the popup can be opened before its section is ever near
+    var mapBtn = document.getElementById('openMapBtn');
+    if (mapBtn) mapBtn.addEventListener('click', function(){ fill(document.getElementById('mapModal')); });
+    check();
+    window.__fillCheck = check;
+  })();
 
   // gallery
   (function(){
