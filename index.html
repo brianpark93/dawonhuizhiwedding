@@ -209,6 +209,13 @@ html[data-mode="h"] .pager-nav{display:block}
 .cover-sheet img{display:block;width:100%;height:auto}
 html.cover-up,html.cover-up body{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.cover{transition-duration:.3s}.cover.lifted{transform:translateY(-100%)}}
+
+/* Committing to sideways rebuilds the layout in one frame - the document stops
+   scrolling, sections become fixed-height pages, the frame takes its 9:16. None
+   of that can be tweened, so the swap dissolves through the phone's own paper
+   instead of cutting. */
+.pager{transition:opacity .2s ease}
+html.switching .pager{opacity:0}
 </style>
 </head>
 <body>
@@ -577,19 +584,34 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
     return cur;
   }
 
-  function lock(m){
+  var switching = false, pendingTurn = 0;
+  function lock(m, after){
     if (mode) return;
     var idx = currentIndex();                        // read before the layout changes
     mode = m;
-    root.dataset.mode = m;
-    if (m === 'h'){
-      pager.style.scrollSnapType = 'none';           // jump, do not animate, to where they were
-      pager.scrollLeft = idx * pager.clientWidth;
-      void pager.offsetWidth;                        // flush the jump before snapping is armed again
-      pager.style.scrollSnapType = '';
+    if (m === 'v'){                                  // vertical is already the layout: nothing to hide
+      root.dataset.mode = 'v';
+      state.page = idx;
+      syncNav();
+      if (after) after();
+      return;
     }
-    state.page = idx;
-    syncNav();
+    switching = true;
+    root.classList.add('switching');
+    setTimeout(function(){
+      root.dataset.mode = 'h';
+      var target = Math.max(0, Math.min(pageCount - 1, idx + pendingTurn));
+      pendingTurn = 0;
+      pager.style.scrollSnapType = 'none';           // land on the page, do not animate to it
+      pager.scrollLeft = target * pager.clientWidth;
+      void pager.offsetWidth;                        // flush before snapping is armed again
+      pager.style.scrollSnapType = '';
+      state.page = target;
+      syncNav();
+      root.classList.remove('switching');
+      switching = false;
+      if (after) after();
+    }, 200);
   }
 
   function goPage(i){
@@ -668,8 +690,8 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
   document.addEventListener('touchend', function(){
     // the swipe that flipped the layout should still turn the page it asked for
     if (g && g.flipped){
-      if (g.dx < -40) goPage(state.page + 1);
-      else if (g.dx > 40) goPage(state.page - 1);
+      var dir = g.dx < -40 ? 1 : (g.dx > 40 ? -1 : 0);
+      if (dir){ if (switching) pendingTurn = dir; else goPage(state.page + dir); }
     }
     g = null;
   }, { passive: true });
@@ -685,8 +707,9 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
     if (!axisArmed){ dismissCover(); return; }
     var k = e.key;
     if (k === 'ArrowRight' || k === 'ArrowLeft'){
-      lock('h');
-      goPage(state.page + (k === 'ArrowRight' ? 1 : -1));
+      var d = (k === 'ArrowRight') ? 1 : -1;
+      if (!mode){ pendingTurn = d; lock('h'); }
+      else goPage(state.page + d);
     } else if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'PageDown' || k === 'PageUp'){
       lock('v');
       if (isH()){ e.preventDefault(); goPage(state.page + ((k === 'ArrowDown' || k === 'PageDown') ? 1 : -1)); }
@@ -694,7 +717,7 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
   });
 
   // mouse: a sideways drag both picks the axis and then drives the pager
-  var drag = null, probe = null;
+  var drag = null, probe = null, lastPointerX = 0;
   pager.addEventListener('pointerdown', function(e){
     if (!axisArmed || e.pointerType === 'touch') return;
     if (e.target.closest && e.target.closest('button, a, input')) return;
@@ -702,13 +725,15 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
     else if (!mode) probe = { x: e.clientX, y: e.clientY };
   });
   window.addEventListener('pointermove', function(e){
+    lastPointerX = e.clientX;
     if (probe){
       var dx = e.clientX - probe.x, dy = e.clientY - probe.y;
       if (Math.abs(dx) > 16 && Math.abs(dx) > Math.abs(dy)){
-        lock('h');
-        drag = { x: e.clientX, left: pager.scrollLeft };
-        pager.style.scrollSnapType = 'none';
         probe = null;
+        lock('h', function(){
+          drag = { x: lastPointerX, left: pager.scrollLeft };
+          pager.style.scrollSnapType = 'none';
+        });
       }
       return;
     }
