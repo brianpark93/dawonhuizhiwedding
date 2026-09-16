@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>다원 ♥ Hui Zhi 결혼합니다</title>
+<meta property="og:title" content="박다원 ♥ Ng Hui Zhi 결혼합니다">
+<meta property="og:description" content="2026년 10월 24일 토요일 오후 12시 · 카이스트 노천극장 (W9)">
+<meta property="og:image" content="https://brianpark93.github.io/dawonhuizhiwedding/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://brianpark93.github.io/dawonhuizhiwedding/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Alex+Brush&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<style>
+html{scroll-behavior:smooth}
+html,body{margin:0;background:#d8d5cf;color:#3a3733;font-family:'Gowun Batang','Cormorant Garamond',serif;-webkit-font-smoothing:antialiased}
+a{color:#8a7a6a;text-decoration:none}a:hover{color:#6f6154}
+input{font-family:'Gowun Batang',serif}
+button{font-family:'Gowun Batang',serif}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes sealPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.06)}}
+@keyframes sealGlow{0%{box-shadow:0 0 0 0 rgba(138,122,106,.5)}70%{box-shadow:0 0 0 18px rgba(138,122,106,0)}100%{box-shadow:0 0 0 0 rgba(138,122,106,0)}}
+@keyframes arrowBob{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+.no-scrollbar::-webkit-scrollbar{display:none;width:0;height:0}
+html[data-lang="en"] .lang-ko{display:none}
+html[data-lang="ko"] .lang-en{display:none}
+
+.phone{max-width:450px;margin:0 auto;background:#efedea;position:relative;box-shadow:0 0 40px rgba(0,0,0,.12);overflow:hidden}
+.pager{display:block}
+.page{width:100%;position:relative}
+.page + .page{border-top:1px solid rgba(58,55,51,.06)}
+.label{position:absolute;top:24px;left:22px;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.32em;color:#a4988a;z-index:5}
+.center-pad{box-sizing:border-box;display:flex;flex-direction:column;padding:72px 22px;text-align:left}
+.rule{width:26px;height:1px;background:#a4988a;margin:0 0 32px}
+.nav-btn{display:none}
+.nav-prev{left:22px;opacity:.55}
+.nav-next{right:22px;animation:arrowBob 1.6s ease-in-out infinite}
+.peek{display:none;position:absolute;top:0;right:0;bottom:0;width:14px;pointer-events:none;z-index:30;background:#efedea;box-shadow:inset -6px 0 12px -4px rgba(0,0,0,.22),-2px 0 6px rgba(0,0,0,.1);display:none}
+
+.seal-btn{position:absolute;left:50%;top:87%;transform:translate(-50%,-50%);width:22%;aspect-ratio:1;border-radius:50%;border:none;background:transparent;cursor:pointer;animation:sealPulse 2.4s ease-in-out infinite, sealGlow 2.4s ease-out infinite}
+.seal-btn.opening{animation:none!important;transform:translate(-50%,-50%) scale(2.6);opacity:0;transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .9s ease}
+.seal-hint{position:absolute;left:0;right:0;top:74%;text-align:center;text-indent:.12em;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:#8a7a6a;white-space:nowrap}
+.hud{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:450px;height:0;z-index:70;pointer-events:none}
+.hud-row{position:absolute;top:12px;right:14px;display:flex;align-items:center;gap:8px;pointer-events:auto}
+.sound-btn{position:static;width:32px;height:32px;border-radius:50%;border:none;background:rgba(253,252,250,.82);box-shadow:0 1px 6px rgba(0,0,0,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.sound-btn .icon-off{display:none}
+.sound-btn.muted .icon-on{display:none}
+.sound-btn.muted .icon-off{display:flex}
+
+.hero-gradient{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(20,16,12,.75) 100%);pointer-events:none}
+.hero-text{position:absolute;left:22px;right:22px;bottom:82px;line-height:normal}
+.hero-kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;color:rgba(255,255,255,.75);margin-bottom:10px}
+.hero-names{font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;line-height:1.1;margin-bottom:10px}
+.hero-date{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:rgba(255,255,255,.8)}
+.hero-top-label{position:absolute;top:20px;left:22px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.28em;color:rgba(255,255,255,.85)}
+
+.letter-body{margin:0 0 40px;max-width:400px;font-size:16px;line-height:2.1;color:#4a453f;text-wrap:pretty;white-space:pre-line}
+.side-label{font-size:13px;letter-spacing:.1em;color:#a4988a;margin-bottom:8px}
+.side-parents{font-size:17.5px;font-weight:700;color:#3a3733;margin-bottom:6px}
+.side-child{font-size:16px;color:#6f6a63;margin-bottom:30px}
+.lang-toggle{position:static;display:flex;gap:2px;background:rgba(253,252,250,.82);box-shadow:0 1px 6px rgba(0,0,0,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:999px;padding:3px}
+.lang-toggle button{border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:transparent;color:#6f6a63}
+html[data-lang="ko"] #btnKo{background:#3a3733;color:#fff}
+html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
+
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:34px;color:#3a3733;line-height:1}
+.cal-year{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#a09a92;margin-top:8px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;max-width:340px}
+.cal-head{text-align:center;color:#a09a92;padding:4px 0;font-size:12px}
+.cal-head.sun{color:#c0968a}
+.cal-cell{text-align:center;padding:7px 0;color:#4a453f;border-radius:50%}
+.cal-cell.blank{color:transparent}
+.cal-cell.sun{color:#c0968a}
+.cal-cell.highlight{color:#fff;background:#8a7a6a}
+.cal-footer{margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08);font-size:15px;color:#6f6a63;max-width:340px}
+
+.venue-name{font-size:19px;color:#4a453f;margin-bottom:6px}
+.venue-addr{font-size:16px;color:#6f6a63;line-height:1.8}
+.link-btn{margin-top:22px;border:none;background:none;padding:0;cursor:pointer;font-size:16px;color:#4a453f;text-decoration:underline;text-align:left;display:block}
+.parking-body{margin:12px 0 0;max-width:400px;font-size:15.5px;line-height:1.85;color:#6f6a63;display:none}
+.parking-body.open{display:block}
+.map-modal{position:fixed;inset:0;z-index:80;background:rgba(20,17,14,.55);display:none;align-items:center;justify-content:center;padding:24px}
+.map-modal.open{display:flex}
+.map-card{background:#fdfcfa;border-radius:6px;max-width:340px;width:100%;padding:22px 22px 24px;box-shadow:0 12px 34px rgba(0,0,0,.25);position:relative}
+.map-close{position:absolute;top:14px;right:14px;border:none;background:none;cursor:pointer;font-size:18px;color:#a09a92;line-height:1;padding:4px}
+.map-title{font-size:18px;color:#3a3733;margin-bottom:4px;padding-right:24px}
+.map-addr{font-size:14.5px;color:#8a7a6a;margin-bottom:16px;white-space:pre-line}
+.map-img-wrap{border-radius:4px;overflow:hidden;border:1px solid rgba(0,0,0,.08);margin-bottom:16px}
+.map-img-wrap img{display:block;width:100%;height:280px;object-fit:cover}
+.map-links{display:flex;gap:8px}
+.map-links a{flex:1;text-align:center;font-size:14px;padding:10px 0;border-radius:4px;color:#4a453f;background:#efece6}
+.bus-box{margin:36px auto 0;max-width:460px;background:#e7e3dd;border-radius:4px;padding:24px 26px;text-align:left}
+.bus-title{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.26em;color:#8a7a6a;margin-bottom:10px}
+.bus-body{margin:0;font-size:16px;line-height:1.95;color:#4a453f}
+.bus-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.bus-links a{font-size:14px;padding:8px 14px;border-radius:999px;background:#fdfcfa;color:#4a453f}
+
+.gallery-viewport{position:relative}
+.gallery-grid{display:none;gap:10px}
+.gallery-grid.active{display:grid}
+.gallery-grid.two-col{grid-template-columns:repeat(2,1fr)}
+.gallery-grid.split{grid-template-columns:1fr 1fr}
+.gallery-full{height:340px;min-width:0;grid-column:1/-1}
+.gallery-half{height:230px;min-width:0}
+.gallery-tall{height:340px;min-width:0}
+.gallery-solo{height:560px;min-width:0}
+.gallery-viewport img{display:block;width:100%;height:100%;object-fit:cover;border-radius:2px}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.85);color:#4a453f;font-size:16px;cursor:pointer}
+.gallery-arrow.prev{left:-6px}
+.gallery-arrow.next{right:-6px}
+.gallery-arrow[disabled]{opacity:.35;pointer-events:none}
+.gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+.gallery-dots button{width:7px;height:7px;border-radius:50%;border:none;padding:0;cursor:pointer;background:rgba(0,0,0,.18)}
+.gallery-dots button.active{background:#8a7a6a}
+
+.acct-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#3a3733;margin-bottom:16px}
+.acct-intro{text-align:left;margin:0 0 34px;font-size:16px;line-height:1.9;color:#6f6a63;white-space:pre-line}
+.acct-list{display:flex;flex-direction:column;max-width:460px}
+.acct-group{border-top:1px solid rgba(0,0,0,.1)}
+.acct-group.last{border-bottom:1px solid rgba(0,0,0,.1)}
+.acct-header{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:18px 0;cursor:pointer}
+.acct-header span:first-child{font-size:16.5px;font-weight:700;color:#3a3733}
+.acct-icon{font-size:18px;color:#8a7a6a;font-weight:300}
+.acct-body{display:none;flex-direction:column;gap:12px;padding-bottom:20px}
+.acct-body.open{display:flex}
+.acct-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.acct-info{font-size:15.5px;color:#4a453f;line-height:1.6}
+.acct-info .num{font-family:'IBM Plex Mono',monospace;font-size:15px}
+.acct-info .holder{display:block;font-size:14.5px;color:#6f6a63}
+.copy-btn{flex:none;border:1px solid rgba(0,0,0,.14);background:#fff;color:#6f6a63;border-radius:999px;font-size:13.5px;padding:6px 14px;cursor:pointer}
+.copy-btn.copied{background:#8a7a6a;color:#fff;border-color:#8a7a6a}
+.copy-btn .copied-label{display:none}
+.copy-btn.copied .copy-label{display:none}
+.copy-btn.copied .copied-label{display:inline}
+
+.rsvp-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#3a3733;margin-bottom:16px}
+.rsvp-intro{max-width:460px;margin:0 0 26px;font-size:15px;line-height:1.85;color:#6f6a63;white-space:pre-line}
+.rsvp-fields{max-width:460px;display:flex;flex-direction:column;gap:24px}
+.field-label{font-size:13.5px;letter-spacing:.06em;color:#a4988a;margin-bottom:8px}
+.field-hint{font-size:13.5px;color:#a09a92;margin-bottom:12px;margin-top:-4px}
+.name-input{width:100%;box-sizing:border-box;border:none;border-radius:4px;padding:13px 14px;font-size:16px;background:#e9e5df;outline:none;color:#3a3733}
+.opt-row{display:flex;gap:8px}
+.opt-btn{flex:1;padding:11px 0;border-radius:4px;border:none;background:#e9e5df;color:#6f6a63;font-size:15px;cursor:pointer}
+.opt-btn.active{background:#2e2b28;color:#fff}
+.comp-stepper{display:flex;align-items:center;gap:16px;background:#e9e5df;border-radius:4px;padding:8px 14px;width:fit-content}
+.comp-stepper button{width:26px;height:26px;border-radius:50%;border:none;background:#fff;cursor:pointer;font-size:17px;color:#3a3733}
+.comp-count{font-family:'IBM Plex Mono',monospace;font-size:16px;min-width:16px;text-align:center}
+.bus-opt{flex:1;display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:4px;border:none;background:#f2efe9;cursor:pointer;text-align:left}
+.bus-opt.active{background:#e9e5df}
+.bus-opt .box{flex:none;width:16px;height:16px;border-radius:3px;border:1.5px solid rgba(0,0,0,.3);background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1}
+.bus-opt.active .box{border-color:#2e2b28;background:#2e2b28}
+.bus-opt .box::after{content:''}
+.bus-opt.active .box::after{content:'✓'}
+.bus-opt .lbl{font-size:14.5px;color:#4a453f;line-height:1.5;white-space:pre-line}
+.submit-btn{margin-top:6px;padding:15px 0;border-radius:4px;border:none;background:#2e2b28;color:#fff;font-size:16.5px;letter-spacing:.1em;cursor:pointer}
+.submit-btn:hover{background:#1c1a18}
+.form-error{text-align:center;font-size:14.5px;color:#b0705f;margin-top:-14px;display:none}
+.form-error.show{display:block}
+.rsvp-thanks{display:none;max-width:460px;text-align:left;animation:fadeUp .5s ease}
+.rsvp-thanks.show{display:block}
+.thanks-cursive{font-family:'Alex Brush',cursive;font-size:40px;color:#a4988a;margin-bottom:14px}
+.thanks-body{font-size:16.5px;line-height:1.9;color:#4a453f;white-space:pre-line}
+.edit-btn{margin-top:22px;border:none;background:none;color:#8a7a6a;font-size:14.5px;text-decoration:underline;cursor:pointer;padding:0}
+
+.closing-cursive{font-family:'Alex Brush',cursive;font-size:38px;color:#8a7a6a}
+.closing-date{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;color:#a09a92}
+.kakao-share-btn{margin-top:30px;border:none;background:#fddc3f;color:#3a3733;padding:12px 22px;border-radius:6px;font-size:15px;cursor:pointer}
+
+/* Sideways mode. Nothing here applies until the first gesture picks an axis. */
+html[data-mode="h"],html[data-mode="h"] body{height:100%;overflow:hidden}
+html[data-mode="h"] .phone{aspect-ratio:9/16;max-height:100svh;overflow:hidden}
+html[data-mode="h"] .pager{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab}
+html[data-mode="h"] .page{flex:none;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start}
+html[data-mode="h"] .page+.page{border-top:none}
+html[data-mode="h"] .center-pad{min-height:100%;justify-content:center}
+html[data-mode="h"] .gallery-viewport{touch-action:pan-y}
+</style>
+</head>
+<body>
+<div class="hud"><div class="hud-row">
+    <div class="lang-toggle">
+      <button id="btnKo" data-lang-btn="ko">KO</button><button id="btnEn" data-lang-btn="en">EN</button>
+    </div>
+  <audio id="bgm" src="../audio/bgm.mp3" loop></audio>
+  <button class="sound-btn" id="soundBtn" aria-label="Toggle music">
+    <svg class="icon-on" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5c554c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"></path><path d="M16 8a5 5 0 010 8"></path><path d="M18.5 5.5a9 9 0 010 13"></path></svg>
+    <svg class="icon-off" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5c554c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"></path><path d="M16 9l5 6M21 9l-5 6"></path></svg>
+  </button>
+</div></div>
+<div class="phone">
+<div class="pager no-scrollbar" id="pager">
+
+<!-- PAGE 0: COVER -->
+<section class="page no-scrollbar" style="background:#f2ece4">
+  <div style="position:relative;width:100%">
+    <img src="../images/cover.webp" alt="The marriage of Dawon and Hui Zhi" style="display:block;width:100%;height:auto">
+    <button class="seal-btn" id="sealBtn" aria-label="Open invitation"></button>
+    <div class="seal-hint"><div>open the seal</div><div style="margin-top:5px">↓ 봉인을 눌러주세요 ↓</div></div>
+  </div>
+</section>
+
+<!-- PAGE 1: HERO -->
+<section class="page no-scrollbar" style="overflow:hidden;background:#dedad4;font-size:0;line-height:0">
+  <div style="position:relative;width:100%">
+    <div class="hero-gradient"></div>
+    <div class="hero-text">
+      <div class="hero-kicker">THE WEDDING OF</div>
+      <div class="hero-names">Dawon <span style="color:rgba(255,255,255,.6);font-weight:400">&amp;</span> Hui Zhi</div>
+      <div class="hero-date">
+        <span class="lang-ko">2026년 10월 24일 토요일 오후 12시</span>
+        <span class="lang-en">Saturday, October 24, 2026 · 12:00 PM</span>
+      </div>
+    </div>
+    <div class="hero-top-label">INVITATION</div>
+    <img src="../images/hero.webp" alt="Dawon and Hui Zhi" style="display:block;width:100%;height:auto">
+  </div>
+</section>
+
+<!-- PAGE 2: LETTER -->
+<section class="page no-scrollbar">
+  <div class="label">LETTER</div>
+  <div class="center-pad" style="padding:72px 22px">
+    <div class="rule"></div>
+    <p class="letter-body lang-ko">서로에게 가장 좋은 친구이자
+든든한 동반자가 되기로 약속한 두 사람이
+사랑과 믿음으로 한 가정을 이루려 합니다.
+
+귀한 걸음 하시어 저희의 새로운 시작을
+축복해 주시면 더없는 기쁨으로 간직하겠습니다.</p>
+    <p class="letter-body lang-en">Two people who promised to be each other's
+best friend and steadfast companion
+are beginning a new family in love and faith.
+
+It would be our greatest joy to have you with us
+as we celebrate the start of our life together.</p>
+
+    <div class="lang-ko">
+      <div class="side-label">신랑 측</div>
+      <div class="side-parents">(부)박상만 · (모)박애순</div>
+      <div class="side-child">의 아들 다원</div>
+      <div class="side-label">신부 측</div>
+      <div class="side-parents">(부)Ng King Hou · (모)Hee Siew Yong</div>
+      <div class="side-child" style="margin-bottom:0">의 딸 Hui Zhi</div>
+    </div>
+    <div class="lang-en">
+      <div class="side-label">GROOM'S SIDE</div>
+      <div class="side-parents">(Father) Park Sangman · (Mother) Park Aesoon</div>
+      <div class="side-child">Dawon, son of</div>
+      <div class="side-label">BRIDE'S SIDE</div>
+      <div class="side-parents">(Father) Ng King Hou · (Mother) Hee Siew Yong</div>
+      <div class="side-child" style="margin-bottom:0">Hui Zhi, daughter of</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PAGE 3: CALENDAR -->
+<section class="page no-scrollbar">
+  <div class="label">CALENDAR</div>
+  <div class="center-pad">
+    <div class="cal-month">OCTOBER</div>
+    <div class="cal-year">2026</div>
+    <div class="rule" style="margin:20px 0 20px"></div>
+    <div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-footer">
+        <span class="lang-ko">2026년 10월 24일 토요일 오후 12시</span>
+        <span class="lang-en">Saturday, October 24, 2026 · 12:00 PM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 4: VENUE -->
+<section class="page no-scrollbar">
+  <div class="label">VENUE</div>
+  <div class="center-pad">
+    <div class="venue-name"><span class="lang-ko">카이스트 노천극장 (W9)</span><span class="lang-en">KAIST Amphitheater (W9)</span></div>
+    <div class="venue-addr"><span class="lang-ko">대전광역시 유성구 대학로 291</span><span class="lang-en">291 Daehak-ro, Yuseong-gu, Daejeon, South Korea</span></div>
+    <button class="link-btn" id="openMapBtn"><span class="lang-ko">오시는 길 →</span><span class="lang-en">Directions →</span></button>
+    <div style="margin-top:14px">
+      <button class="link-btn" id="parkingToggleBtn" style="margin-top:0"><span class="lang-ko">주차 안내 →</span><span class="lang-en">Parking →</span></button>
+      <p class="parking-body" id="parkingBody">
+        <span class="lang-ko">노천극장 입구에 주차 공간이 마련되어 있으며, 주차는 무료입니다.</span>
+        <span class="lang-en">Parking available right in front of the venue. It's free parking space.</span>
+      </p>
+    </div>
+
+    <div class="map-modal" id="mapModal">
+      <div class="map-card" id="mapCard">
+        <button class="map-close" id="mapCloseBtn" aria-label="Close">×</button>
+        <div class="map-title"><span class="lang-ko">카이스트 노천극장 (W9)</span><span class="lang-en">KAIST Amphitheater (W9)</span></div>
+        <div class="map-addr">
+          <span class="lang-ko">대전광역시 유성구 대학로 291
+정문에서 약 900m, 도보 10분</span>
+          <span class="lang-en">291 Daehak-ro, Yuseong-gu, Daejeon, South Korea
+900m from the main gate, about a 10-minute walk</span>
+        </div>
+        <div class="map-img-wrap">
+          <div class="lang-ko"><img src="../images/map-ko.webp" alt="Map"></div>
+          <div class="lang-en"><img src="../images/map-en.webp" alt="Map"></div>
+        </div>
+        <div class="map-links">
+          <a href="https://naver.me/xprzdn50" target="_blank"><span class="lang-ko">네이버 지도</span><span class="lang-en">Naver Map</span></a>
+          <a href="https://kko.to/4ks4fBrTX3" target="_blank"><span class="lang-ko">카카오맵</span><span class="lang-en">KakaoMap</span></a>
+          <a href="https://maps.app.goo.gl/oEXW9cim6mN7cq6o9" target="_blank">Google</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bus-box">
+      <div class="bus-title">
+        <span class="lang-ko">SHUTTLE BUS · 서울 ↔ 대전</span><span class="lang-en">SHUTTLE BUS · SEOUL ↔ DAEJEON</span>
+      </div>
+      <p class="bus-body">
+        <span class="lang-ko">서울에서 오시는 분들을 위해 전세버스를 운행합니다.<br>갈 때 오전 8시 <strong>온수역 6번 출구</strong> 출발,<br>올 때 오후 2시 <strong>카이스트 노천극장 입구</strong> 출발입니다.<br>맨 아래 참석 여부 회신(RSVP)에서 버스 이용 여부를 꼭 체크해 주세요.</span>
+        <span class="lang-en">A chartered bus will run for guests coming from Seoul.<br>Departs 8:00 AM from <strong>Onsu Station Exit 6</strong>;<br>returns 2:00 PM from the <strong>KAIST Amphitheater entrance</strong>.<br>Please be sure to tick the bus option in the RSVP at the bottom of this page.</span>
+      </p>
+      <div class="bus-links">
+        <a href="https://map.naver.com/p/search/%EC%98%A8%EC%88%98%EC%97%AD%206%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank"><span class="lang-ko">온수역 6번 출구</span><span class="lang-en">Onsu Stn. Exit 6</span> →</a>
+        <a href="https://naver.me/xZVyTxdZ" target="_blank"><span class="lang-ko">노천극장 입구</span><span class="lang-en">Amphitheater Entrance</span> →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 5: GALLERY -->
+<section class="page no-scrollbar">
+  <div class="label">GALLERY</div>
+  <div class="center-pad" style="text-align:center">
+    <div class="gallery-viewport" id="galleryViewport">
+      <div class="gallery-grid two-col active" data-gpage="0">
+        <div class="gallery-full"><img src="../images/g1.webp" alt=""></div>
+        <div class="gallery-half"><img src="../images/g2.webp" alt=""></div>
+        <div class="gallery-half"><img src="../images/g3.webp" alt=""></div>
+      </div>
+      <div class="gallery-grid split" data-gpage="1">
+        <div class="gallery-tall"><img src="../images/g4.webp" alt=""></div>
+        <div class="gallery-tall"><img src="../images/g5.webp" alt=""></div>
+      </div>
+      <div class="gallery-grid two-col" data-gpage="2">
+        <div class="gallery-full"><img src="../images/g7.webp" alt=""></div>
+        <div class="gallery-half"><img src="../images/g8.webp" alt=""></div>
+        <div class="gallery-half"><img src="../images/g9.webp" alt=""></div>
+      </div>
+      <div class="gallery-grid" data-gpage="3" style="display:block">
+        <div class="gallery-solo"><img src="../images/g10.webp" alt=""></div>
+      </div>
+      <button class="gallery-arrow prev" id="galPrevBtn" aria-label="Previous">‹</button>
+      <button class="gallery-arrow next" id="galNextBtn" aria-label="Next">›</button>
+    </div>
+    <div class="gallery-dots" id="galleryDots">
+      <button data-gdot="0" class="active"></button><button data-gdot="1"></button><button data-gdot="2"></button><button data-gdot="3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 6: ACCOUNTS -->
+<section class="page no-scrollbar">
+  <div class="label">ACCOUNT</div>
+  <div class="center-pad">
+    <div class="acct-title"><span class="lang-ko">마음 전하실 곳</span><span class="lang-en">With Gratitude</span></div>
+    <p class="acct-intro">
+      <span class="lang-ko">멀리서도 축하의 마음을 전하고 싶으신 분들을 위해
+계좌번호를 함께 안내드립니다.</span>
+      <span class="lang-en">Thank you for celebrating this joyful beginning with us.
+We will remember your kindness always.</span>
+    </p>
+    <div class="acct-list">
+      <div class="acct-group">
+        <button class="acct-header" id="groomAcctHeader">
+          <span><span class="lang-ko">신랑측</span><span class="lang-en">GROOM'S SIDE</span></span>
+          <span class="acct-icon" id="groomAcctIcon">+</span>
+        </button>
+        <div class="acct-body" id="groomAcctBody">
+          <div class="acct-row">
+            <div class="acct-info"><span class="lang-ko">NH농협은행</span><span class="lang-en">NH Bank</span> <span class="num">3120058171081</span><span class="holder"><span class="lang-ko">(부)박상만</span><span class="lang-en">(Father) Park Sangman</span></span></div>
+            <button class="copy-btn" data-copy-ko="NH농협은행 3120058171081 박상만" data-copy-en="NH Bank 3120058171081 Park Sangman"><span class="copy-label"><span class="lang-ko">복사</span><span class="lang-en">Copy</span></span><span class="copied-label"><span class="lang-ko">복사됨</span><span class="lang-en">Copied</span></span></button>
+          </div>
+          <div class="acct-row">
+            <div class="acct-info"><span class="lang-ko">토스뱅크</span><span class="lang-en">Toss Bank</span> <span class="num">1000-2737-0037</span><span class="holder"><span class="lang-ko">(모)박애순</span><span class="lang-en">(Mother) Park Aesoon</span></span></div>
+            <button class="copy-btn" data-copy-ko="토스뱅크 1000-2737-0037 박애순" data-copy-en="Toss Bank 1000-2737-0037 Park Aesoon"><span class="copy-label"><span class="lang-ko">복사</span><span class="lang-en">Copy</span></span><span class="copied-label"><span class="lang-ko">복사됨</span><span class="lang-en">Copied</span></span></button>
+          </div>
+          <div class="acct-row">
+            <div class="acct-info"><span class="lang-ko">우리은행</span><span class="lang-en">Woori Bank</span> <span class="num">1002-445-840835</span><span class="holder"><span class="lang-ko">박다원</span><span class="lang-en">Park Dawon</span></span></div>
+            <button class="copy-btn" data-copy-ko="우리은행 1002-445-840835 박다원" data-copy-en="Woori Bank 1002-445-840835 Park Dawon"><span class="copy-label"><span class="lang-ko">복사</span><span class="lang-en">Copy</span></span><span class="copied-label"><span class="lang-ko">복사됨</span><span class="lang-en">Copied</span></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="acct-group last">
+        <button class="acct-header" id="brideAcctHeader">
+          <span><span class="lang-ko">신부측</span><span class="lang-en">BRIDE'S SIDE</span></span>
+          <span class="acct-icon" id="brideAcctIcon">+</span>
+        </button>
+        <div class="acct-body" id="brideAcctBody">
+          <div class="acct-row">
+            <div class="acct-info">Maybank <span class="num">112473048061</span><span class="holder"><span class="lang-ko">(부)Ng King Hou</span><span class="lang-en">(Father) Ng King Hou</span></span></div>
+            <button class="copy-btn" data-copy-ko="Maybank 112473048061 Ng King Hou" data-copy-en="Maybank 112473048061 Ng King Hou"><span class="copy-label"><span class="lang-ko">복사</span><span class="lang-en">Copy</span></span><span class="copied-label"><span class="lang-ko">복사됨</span><span class="lang-en">Copied</span></span></button>
+          </div>
+          <div class="acct-row">
+            <div class="acct-info">Maybank <span class="num">101217732449</span><span class="holder"><span class="lang-ko">(모)Hee Siew Yong</span><span class="lang-en">(Mother) Hee Siew Yong</span></span></div>
+            <button class="copy-btn" data-copy-ko="Maybank 101217732449 Hee Siew Yong" data-copy-en="Maybank 101217732449 Hee Siew Yong"><span class="copy-label"><span class="lang-ko">복사</span><span class="lang-en">Copy</span></span><span class="copied-label"><span class="lang-ko">복사됨</span><span class="lang-en">Copied</span></span></button>
+          </div>
+          <div class="acct-row">
+            <div class="acct-info"><span class="lang-ko">우리은행</span><span class="lang-en">Woori Bank</span> <span class="num">1002-758-084166</span><span class="holder">Ng Hui Zhi</span></div>
+            <button class="copy-btn" data-copy-ko="우리은행 1002-758-084166 Ng Hui Zhi" data-copy-en="Woori Bank 1002-758-084166 Ng Hui Zhi"><span class="copy-label"><span class="lang-ko">복사</span><span class="lang-en">Copy</span></span><span class="copied-label"><span class="lang-ko">복사됨</span><span class="lang-en">Copied</span></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 7: RSVP -->
+<section class="page no-scrollbar">
+  <div class="label">R.S.V.P</div>
+  <div class="center-pad" style="padding:72px 22px 40px">
+
+    <div class="rsvp-thanks" id="rsvpThanks">
+      <div class="thanks-cursive">Thank you</div>
+      <div class="thanks-body">
+        <span class="lang-ko">소중한 회신 감사합니다.
+10월 24일, 기쁜 마음으로 뵙겠습니다.</span>
+        <span class="lang-en">Thank you for your kind reply.
+We look forward to seeing you on October 24.</span>
+      </div>
+      <button class="edit-btn" id="editReplyBtn"><span class="lang-ko">회신 수정하기</span><span class="lang-en">Edit my reply</span></button>
+    </div>
+
+    <div id="rsvpForm">
+      <div class="rsvp-title"><span class="lang-ko">참석 회신</span><span class="lang-en">RSVP</span></div>
+      <p class="rsvp-intro">
+        <span class="lang-ko">축하의 마음으로 참석해 주시는 한 분 한 분을
+소중히 모실 수 있도록 참석 여부를 알려주세요.
+전세버스를 이용하시는 분은 수요 조사를 위해 가능한 한 빨리 회신해 주시면 큰 도움이 됩니다.</span>
+        <span class="lang-en">So that we may warmly welcome each and every guest,
+please let us know if you can join us.
+If you plan to use the shuttle bus, an early reply really helps us plan numbers.</span>
+      </p>
+      <div class="rsvp-fields">
+        <div>
+          <div class="field-label"><span class="lang-ko">성함</span><span class="lang-en">Your name</span></div>
+          <input type="text" class="name-input" id="nameInput" placeholder="성함을 입력해 주세요">
+        </div>
+        <div>
+          <div class="field-label"><span class="lang-ko">참석 여부</span><span class="lang-en">Attendance</span></div>
+          <div class="opt-row" data-group="attending">
+            <button class="opt-btn" data-value="yes"><span class="lang-ko">참석합니다</span><span class="lang-en">Joyfully attending</span></button>
+            <button class="opt-btn" data-value="no"><span class="lang-ko">참석이 어렵습니다</span><span class="lang-en">Regretfully declining</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="field-label"><span class="lang-ko">어느 분의 하객이신가요?</span><span class="lang-en">Whose guest are you?</span></div>
+          <div class="opt-row" data-group="side">
+            <button class="opt-btn" data-value="groom"><span class="lang-ko">신랑측</span><span class="lang-en">Groom's side</span></button>
+            <button class="opt-btn" data-value="bride"><span class="lang-ko">신부측</span><span class="lang-en">Bride's side</span></button>
+          </div>
+        </div>
+        <div id="attendingExtras">
+          <div style="display:flex;flex-direction:column;gap:24px">
+            <div>
+              <div class="field-label"><span class="lang-ko">동행 인원 (본인 제외)</span><span class="lang-en">Companions (excluding yourself)</span></div>
+              <div class="comp-stepper">
+                <button id="compDec">−</button>
+                <div class="comp-count" id="compCount">0</div>
+                <button id="compInc">+</button>
+              </div>
+            </div>
+            <div>
+              <div class="field-label"><span class="lang-ko">식사 여부</span><span class="lang-en">Meal</span></div>
+              <div class="opt-row" data-group="meal">
+                <button class="opt-btn" data-value="yes"><span class="lang-ko">식사 합니다</span><span class="lang-en">Having the meal</span></button>
+                <button class="opt-btn" data-value="no"><span class="lang-ko">식사 안 합니다</span><span class="lang-en">Not having the meal</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-label"><span class="lang-ko">전세버스 (온수역 출발)</span><span class="lang-en">Chartered bus (from Onsu Station, optional)</span></div>
+          <div class="field-hint"><span class="lang-ko">이용하시는 방향을 각각 선택해 주세요.</span><span class="lang-en">Tick each direction you need separately.</span></div>
+          <div class="opt-row">
+            <button class="bus-opt" data-bus="busGo"><span class="box"></span><span class="lbl"><span class="lang-ko">서울 → 대전
+오전 8시</span><span class="lang-en">Seoul → Daejeon
+8:00 AM</span></span></button>
+            <button class="bus-opt" data-bus="busReturn"><span class="box"></span><span class="lbl"><span class="lang-ko">대전 → 서울
+오후 2시</span><span class="lang-en">Daejeon → Seoul
+2:00 PM</span></span></button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitBtn"><span class="lang-ko">회신 보내기</span><span class="lang-en">Send RSVP</span></button>
+        <div class="form-error" id="formError"><span class="lang-ko">성함과 참석 여부를 입력해 주세요.</span><span class="lang-en">Please enter your name and attendance.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 8: CLOSING -->
+<section class="page no-scrollbar">
+  <div class="center-pad" style="align-items:center;text-align:center">
+    <div class="closing-cursive">Dawon and Hui Zhi</div>
+    <div class="rule" style="margin:24px 0"></div>
+    <div class="closing-date">24 . 10 . 2026 · KAIST</div>
+    <button class="kakao-share-btn" id="kakaoShareBtn">카카오톡으로 공유하기</button>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script>
+(function(){
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  var root = document.documentElement;
+  var pager = document.getElementById('pager');
+  var pages = pager.querySelectorAll('.page');
+  var pageCount = pages.length;
+  var state = { page: 0, galleryPage: 0, soundOn: true };
+
+  // ---- axis mode -------------------------------------------------------
+  // The invitation ships with no committed direction and no arrows. It lays
+  // out as one vertical scroll; a sideways swipe flips it into the paged
+  // layout. Whichever axis the guest reaches for first is the one it keeps.
+  var mode = null;                                  // null | 'v' | 'h'
+  function isH(){ return mode === 'h'; }
+
+  function currentIndex(){
+    if (isH()) return Math.round(pager.scrollLeft / (pager.clientWidth || 1));
+    var line = window.innerHeight * 0.4, cur = 0;
+    for (var i = 0; i < pageCount; i++){ if (pages[i].getBoundingClientRect().top <= line) cur = i; }
+    return cur;
+  }
+
+  function lock(m){
+    if (mode) return;
+    var idx = currentIndex();                        // read before the layout changes
+    mode = m;
+    root.dataset.mode = m;
+    if (m === 'h'){
+      pager.style.scrollSnapType = 'none';           // jump, do not animate, to where they were
+      pager.scrollLeft = idx * pager.clientWidth;
+      void pager.offsetWidth;                        // flush the jump before snapping is armed again
+      pager.style.scrollSnapType = '';
+    }
+    state.page = idx;
+  }
+
+  function goPage(i){
+    var idx = Math.max(0, Math.min(pageCount - 1, i));
+    if (isH()) pager.scrollTo({ left: idx * pager.clientWidth, behavior: 'smooth' });
+    else window.scrollTo({ top: pages[idx].getBoundingClientRect().top + window.pageYOffset, behavior: 'smooth' });
+    state.page = idx;
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){ state.page = currentIndex(); ticking = false; });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  pager.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---- first gesture decides the axis ----------------------------------
+  // The gallery runs its own sideways swipe, so a drag that starts there must
+  // not be read as a request for the paged layout.
+  var OWN_SWIPE = '.gallery-viewport, .map-modal';
+  var g = null;
+  document.addEventListener('touchstart', function(e){
+    if (mode || !e.touches.length) return;
+    if (e.target.closest && e.target.closest(OWN_SWIPE)) { g = null; return; }
+    g = { x: e.touches[0].clientX, y: e.touches[0].clientY, dx: 0, flipped: false };
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e){
+    if (!g || !e.touches.length) return;
+    g.dx = e.touches[0].clientX - g.x;
+    var dy = e.touches[0].clientY - g.y, ax = Math.abs(g.dx), ay = Math.abs(dy);
+    if (mode) return;
+    if (ax < 16 && ay < 16) return;
+    if (ax > ay * 1.2){ lock('h'); g.flipped = true; }
+    else { lock('v'); g = null; }
+  }, { passive: true });
+  document.addEventListener('touchend', function(){
+    // the swipe that flipped the layout should still turn the page it asked for
+    if (g && g.flipped){
+      if (g.dx < -40) goPage(state.page + 1);
+      else if (g.dx > 40) goPage(state.page - 1);
+    }
+    g = null;
+  }, { passive: true });
+
+  window.addEventListener('wheel', function(e){
+    if (mode) return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) + 2) lock('h');
+    else if (e.deltaY) lock('v');
+  }, { passive: true });
+
+  window.addEventListener('keydown', function(e){
+    if (e.target.closest && e.target.closest('input, textarea')) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowLeft'){
+      lock('h');
+      goPage(state.page + (k === 'ArrowRight' ? 1 : -1));
+    } else if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'PageDown' || k === 'PageUp'){
+      lock('v');
+      if (isH()){ e.preventDefault(); goPage(state.page + ((k === 'ArrowDown' || k === 'PageDown') ? 1 : -1)); }
+    }
+  });
+
+  // mouse: a sideways drag both picks the axis and then drives the pager
+  var drag = null, probe = null;
+  pager.addEventListener('pointerdown', function(e){
+    if (e.pointerType === 'touch') return;
+    if (e.target.closest && e.target.closest('button, a, input')) return;
+    if (isH()){ drag = { x: e.clientX, left: pager.scrollLeft }; pager.style.scrollSnapType = 'none'; }
+    else if (!mode) probe = { x: e.clientX, y: e.clientY };
+  });
+  window.addEventListener('pointermove', function(e){
+    if (probe){
+      var dx = e.clientX - probe.x, dy = e.clientY - probe.y;
+      if (Math.abs(dx) > 16 && Math.abs(dx) > Math.abs(dy)){
+        lock('h');
+        drag = { x: e.clientX, left: pager.scrollLeft };
+        pager.style.scrollSnapType = 'none';
+        probe = null;
+      }
+      return;
+    }
+    if (drag) pager.scrollLeft = drag.left - (e.clientX - drag.x);
+  });
+  window.addEventListener('pointerup', function(){
+    probe = null;
+    if (!drag) return;
+    drag = null;
+    pager.style.scrollSnapType = '';
+    goPage(Math.round(pager.scrollLeft / (pager.clientWidth || 1)));
+  });
+
+  // seal
+  var sealBtn = document.getElementById('sealBtn');
+  sealBtn.addEventListener('click', function(){
+    sealBtn.classList.add('opening');
+    setTimeout(function(){ goPage(1); }, 900);
+  });
+
+  // audio
+  var bgm = document.getElementById('bgm');
+  var soundBtn = document.getElementById('soundBtn');
+  bgm.volume = 0.15;
+  function tryPlay(){ if (state.soundOn) bgm.play().catch(function(){}); }
+  tryPlay();
+  var unlock = function(){ tryPlay(); document.removeEventListener('pointerdown', unlock); };
+  document.addEventListener('pointerdown', unlock);
+  soundBtn.addEventListener('click', function(){
+    state.soundOn = !state.soundOn;
+    if (state.soundOn) bgm.play().catch(function(){}); else bgm.pause();
+    soundBtn.classList.toggle('muted', !state.soundOn);
+  });
+
+  // lang toggle
+  var nameInput = document.getElementById('nameInput');
+  function syncPlaceholder(){
+    nameInput.placeholder = document.documentElement.dataset.lang === 'en' ? 'Enter your name' : '성함을 입력해 주세요';
+  }
+  document.getElementById('btnKo').addEventListener('click', function(){ document.documentElement.dataset.lang = 'ko'; syncPlaceholder(); });
+  document.getElementById('btnEn').addEventListener('click', function(){ document.documentElement.dataset.lang = 'en'; syncPlaceholder(); });
+
+  // calendar
+  (function(){
+    var grid = document.getElementById('calGrid');
+    var html = '';
+    ['S','M','T','W','T','F','S'].forEach(function(d, i){ html += '<div class="cal-head' + (i === 0 ? ' sun' : '') + '">' + d + '</div>'; });
+    for (var i = 0; i < 4; i++) html += '<div class="cal-cell blank">0</div>';
+    for (var d = 1; d <= 31; d++){
+      var idx = 4 + d - 1;
+      var isSun = idx % 7 === 0;
+      var cls = 'cal-cell' + (d === 24 ? ' highlight' : (isSun ? ' sun' : ''));
+      html += '<div class="' + cls + '">' + d + '</div>';
+    }
+    grid.innerHTML = html;
+  })();
+
+  // venue: map popup + parking
+  var mapModal = document.getElementById('mapModal');
+  document.getElementById('openMapBtn').addEventListener('click', function(){ mapModal.classList.add('open'); });
+  document.getElementById('mapCloseBtn').addEventListener('click', function(){ mapModal.classList.remove('open'); });
+  mapModal.addEventListener('click', function(e){ if (e.target === mapModal) mapModal.classList.remove('open'); });
+  document.getElementById('mapCard').addEventListener('click', function(e){ e.stopPropagation(); });
+  var parkingBody = document.getElementById('parkingBody');
+  document.getElementById('parkingToggleBtn').addEventListener('click', function(){ parkingBody.classList.toggle('open'); });
+
+  // gallery
+  (function(){
+    var grids = document.querySelectorAll('.gallery-grid');
+    var dots = document.querySelectorAll('[data-gdot]');
+    var prevBtn = document.getElementById('galPrevBtn');
+    var nextBtn = document.getElementById('galNextBtn');
+    var count = grids.length;
+    function render(){
+      grids.forEach(function(g){ g.classList.toggle('active', Number(g.dataset.gpage) === state.galleryPage); g.style.display = Number(g.dataset.gpage) === state.galleryPage ? '' : 'none'; });
+      dots.forEach(function(d){ d.classList.toggle('active', Number(d.dataset.gdot) === state.galleryPage); });
+      prevBtn.disabled = state.galleryPage === 0;
+    }
+    prevBtn.addEventListener('click', function(){ state.galleryPage = Math.max(0, state.galleryPage - 1); render(); });
+    nextBtn.addEventListener('click', function(){
+      if (state.galleryPage === count - 1) goPage(state.page + 1);
+      else { state.galleryPage++; render(); }
+    });
+    dots.forEach(function(d){ d.addEventListener('click', function(){ state.galleryPage = Number(d.dataset.gdot); render(); }); });
+    var touchX = null;
+    var viewport = document.getElementById('galleryViewport');
+    viewport.addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; });
+    viewport.addEventListener('touchend', function(e){
+      if (touchX == null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) < 40) return;
+      if (dx < 0) state.galleryPage = Math.min(count - 1, state.galleryPage + 1);
+      else state.galleryPage = Math.max(0, state.galleryPage - 1);
+      render();
+    });
+    render();
+  })();
+
+  // accordion
+  function bindAccordion(headerId, bodyId, iconId){
+    var header = document.getElementById(headerId), body = document.getElementById(bodyId), icon = document.getElementById(iconId);
+    header.addEventListener('click', function(){
+      var open = body.classList.toggle('open');
+      icon.textContent = open ? '−' : '+';
+    });
+  }
+  bindAccordion('groomAcctHeader', 'groomAcctBody', 'groomAcctIcon');
+  bindAccordion('brideAcctHeader', 'brideAcctBody', 'brideAcctIcon');
+
+  // copy buttons
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var lang = document.documentElement.dataset.lang;
+      var text = lang === 'en' ? btn.dataset.copyEn : btn.dataset.copyKo;
+      if (navigator.clipboard) navigator.clipboard.writeText(text).catch(function(){});
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.classList.remove('copied'); }, 1800);
+    });
+  });
+
+  // RSVP form
+  var form = { name: '', side: null, attending: null, companions: 0, meal: null, busGo: false, busReturn: false };
+  var rsvpForm = document.getElementById('rsvpForm');
+  var rsvpThanks = document.getElementById('rsvpThanks');
+  var formError = document.getElementById('formError');
+  var attendingExtras = document.getElementById('attendingExtras');
+
+  function setOptActive(group, value){
+    document.querySelectorAll('[data-group="' + group + '"] .opt-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.value === value);
+    });
+  }
+  document.querySelectorAll('[data-group] .opt-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = btn.closest('[data-group]').dataset.group;
+      form[group] = btn.dataset.value;
+      setOptActive(group, btn.dataset.value);
+      formError.classList.remove('show');
+      if (group === 'attending') attendingExtras.style.display = form.attending === 'yes' ? '' : 'none';
+    });
+  });
+  var compCount = document.getElementById('compCount');
+  document.getElementById('compDec').addEventListener('click', function(){ form.companions = Math.max(0, form.companions - 1); compCount.textContent = form.companions; });
+  document.getElementById('compInc').addEventListener('click', function(){ form.companions = Math.min(10, form.companions + 1); compCount.textContent = form.companions; });
+  document.querySelectorAll('.bus-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.dataset.bus;
+      form[key] = !form[key];
+      btn.classList.toggle('active', form[key]);
+    });
+  });
+  nameInput.addEventListener('input', function(){ form.name = nameInput.value; formError.classList.remove('show'); });
+
+  function fillForm(f){
+    nameInput.value = f.name || '';
+    form = Object.assign({}, form, f);
+    setOptActive('attending', form.attending);
+    setOptActive('side', form.side);
+    setOptActive('meal', form.meal);
+    compCount.textContent = form.companions || 0;
+    attendingExtras.style.display = form.attending === 'yes' ? '' : 'none';
+    document.querySelectorAll('.bus-opt').forEach(function(btn){
+      btn.classList.toggle('active', !!form[btn.dataset.bus]);
+    });
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    if (!form.name || !form.name.trim() || !form.attending){ formError.classList.add('show'); return; }
+    try { localStorage.setItem('dw_rsvp', JSON.stringify(form)); } catch(e){}
+    fetch('https://script.google.com/macros/s/AKfycbzgGEXUzk3V_c-gfSbN8kObnreC0wVFM9vvhAOYFao20Sm81aO-lQH9V83aGOqYi2t0/exec', {
+      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(form)
+    }).catch(function(){});
+    rsvpForm.style.display = 'none';
+    rsvpThanks.classList.add('show');
+  });
+  document.getElementById('editReplyBtn').addEventListener('click', function(){
+    rsvpThanks.classList.remove('show');
+    rsvpForm.style.display = '';
+  });
+
+  try {
+    var saved = JSON.parse(localStorage.getItem('dw_rsvp') || 'null');
+    if (saved){ fillForm(saved); rsvpForm.style.display = 'none'; rsvpThanks.classList.add('show'); }
+  } catch(e){}
+
+  // kakao share
+  if (window.Kakao && !window.Kakao.isInitialized()) window.Kakao.init('a25bfc3d0d9a73b2a28ae6ca504c9c20');
+  document.getElementById('kakaoShareBtn').addEventListener('click', function(){
+    if (!window.Kakao) return;
+    if (!window.Kakao.isInitialized()) window.Kakao.init('a25bfc3d0d9a73b2a28ae6ca504c9c20');
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '박다원 ♥ Ng Hui Zhi 결혼합니다',
+        description: '2026년 10월 24일 토요일 오후 12시 · 카이스트 노천극장 (W9)',
+        imageUrl: 'https://brianpark93.github.io/dawonhuizhiwedding/og-image.jpg',
+        link: { mobileWebUrl: 'https://brianpark93.github.io/dawonhuizhiwedding/', webUrl: 'https://brianpark93.github.io/dawonhuizhiwedding/' }
+      },
+      buttons: [{ title: '청첩장 보기', link: { mobileWebUrl: 'https://brianpark93.github.io/dawonhuizhiwedding/', webUrl: 'https://brianpark93.github.io/dawonhuizhiwedding/' } }]
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
