@@ -203,7 +203,7 @@ html[data-mode="h"] .pager-nav{display:block}
 .cover-stage{position:fixed;inset:0;z-index:60;perspective:1500px;overflow:hidden}
 .cover{position:absolute;inset:0;background:#f2ece4;display:flex;align-items:center;justify-content:center;
   transform-origin:50% 0;backface-visibility:hidden;cursor:pointer;
-  transition:transform 1s cubic-bezier(.62,.03,.3,1)}
+  transition:transform .8s cubic-bezier(.62,.03,.3,1)}
 .cover.lifted{transform:rotateX(-96deg)}
 .cover-sheet{position:relative;width:100%;max-width:450px}
 .cover-sheet img{display:block;width:100%;height:auto}
@@ -628,16 +628,19 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
     coverStage.dataset.gone = '1';
     sealBtn.classList.add('opening');    // the seal breaks as the sheet lifts
     cover.classList.add('lifted');
-    root.classList.remove('cover-up');
     window.scrollTo(0, 0);
-    // The gesture that lifted the cover must not also pick an axis, so the
-    // detectors stay asleep until the sheet is on its way out.
-    setTimeout(function(){ axisArmed = true; }, 820);
-    setTimeout(function(){ coverStage.style.display = 'none'; }, 1120);
+    // The page stays frozen until the sheet is gone: unlocking at the start
+    // let the flick that lifted the cover run on into the invitation, and
+    // that same gesture must not pick an axis either.
+    setTimeout(function(){
+      root.classList.remove('cover-up');
+      coverStage.style.display = 'none';
+      axisArmed = true;
+    }, 840);
   }
   coverStage.addEventListener('click', dismissCover);
-  coverStage.addEventListener('touchmove', dismissCover, { passive: true });
-  coverStage.addEventListener('wheel', dismissCover, { passive: true });
+  coverStage.addEventListener('touchmove', function(e){ e.preventDefault(); dismissCover(); }, { passive: false });
+  coverStage.addEventListener('wheel', function(e){ e.preventDefault(); dismissCover(); }, { passive: false });
 
   // ---- first gesture decides the axis ----------------------------------
   // The gallery runs its own sideways swipe, so a drag that starts there must
