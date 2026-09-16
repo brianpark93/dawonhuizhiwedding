@@ -15,86 +15,89 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Alex+Brush&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style>
-html,body{margin:0;height:100%;background:#d8d5cf;color:#3a3733;font-family:'Gowun Batang','Cormorant Garamond',serif;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+html,body{margin:0;background:#d8d5cf;color:#3a3733;font-family:'Gowun Batang','Cormorant Garamond',serif;-webkit-font-smoothing:antialiased}
 a{color:#8a7a6a;text-decoration:none}a:hover{color:#6f6154}
 input{font-family:'Gowun Batang',serif}
 button{font-family:'Gowun Batang',serif}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes arrowBob{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 @keyframes sealPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.06)}}
 @keyframes sealGlow{0%{box-shadow:0 0 0 0 rgba(138,122,106,.5)}70%{box-shadow:0 0 0 18px rgba(138,122,106,0)}100%{box-shadow:0 0 0 0 rgba(138,122,106,0)}}
+@keyframes arrowBob{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
 .no-scrollbar::-webkit-scrollbar{display:none;width:0;height:0}
 html[data-lang="en"] .lang-ko{display:none}
 html[data-lang="ko"] .lang-en{display:none}
 
-.phone{max-width:450px;margin:0 auto;background:#efedea;aspect-ratio:9/16;max-height:100svh;position:relative;box-shadow:0 0 40px rgba(0,0,0,.12);overflow:hidden}
-.pager{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab}
-.page{flex:none;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start;position:relative}
-.label{position:absolute;top:24px;left:22px;font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:.32em;color:#a4988a;z-index:5}
-.center-pad{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:72px 22px;text-align:left}
+.phone{max-width:450px;margin:0 auto;background:#efedea;position:relative;box-shadow:0 0 40px rgba(0,0,0,.12);overflow:hidden}
+.pager{display:block}
+.page{width:100%;position:relative}
+.page + .page{border-top:1px solid rgba(58,55,51,.06)}
+.label{position:absolute;top:24px;left:22px;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.32em;color:#a4988a;z-index:5}
+.center-pad{box-sizing:border-box;display:flex;flex-direction:column;padding:72px 22px;text-align:left}
 .rule{width:26px;height:1px;background:#a4988a;margin:0 0 32px}
-.nav-btn{position:absolute;bottom:22px;width:30px;height:30px;border:none;background:transparent;cursor:pointer;padding:0}
+.nav-btn{display:none}
 .nav-prev{left:22px;opacity:.55}
 .nav-next{right:22px;animation:arrowBob 1.6s ease-in-out infinite}
-.peek{position:absolute;top:0;right:0;bottom:0;width:14px;pointer-events:none;z-index:30;background:#efedea;box-shadow:inset -6px 0 12px -4px rgba(0,0,0,.22),-2px 0 6px rgba(0,0,0,.1);display:none}
+.peek{display:none;position:absolute;top:0;right:0;bottom:0;width:14px;pointer-events:none;z-index:30;background:#efedea;box-shadow:inset -6px 0 12px -4px rgba(0,0,0,.22),-2px 0 6px rgba(0,0,0,.1);display:none}
 
 .seal-btn{position:absolute;left:50%;top:87%;transform:translate(-50%,-50%);width:22%;aspect-ratio:1;border-radius:50%;border:none;background:transparent;cursor:pointer;animation:sealPulse 2.4s ease-in-out infinite, sealGlow 2.4s ease-out infinite}
 .seal-btn.opening{animation:none!important;transform:translate(-50%,-50%) scale(2.6);opacity:0;transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .9s ease}
-.seal-hint{position:absolute;left:0;right:0;top:74%;text-align:center;text-indent:.12em;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:#8a7a6a;white-space:nowrap}
-.sound-btn{position:absolute;top:14px;right:16px;z-index:50;width:32px;height:32px;border-radius:50%;border:none;background:rgba(58,55,51,.18);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.seal-hint{position:absolute;left:0;right:0;top:70%;text-align:center;text-indent:.12em;font-family:'IBM Plex Mono',monospace;font-size:13.5px;letter-spacing:.12em;color:#8a7a6a;white-space:nowrap}
+.hud{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:450px;height:0;z-index:70;pointer-events:none}
+.hud-row{position:absolute;top:12px;right:14px;display:flex;align-items:center;gap:8px;pointer-events:auto}
+.sound-btn{position:static;width:32px;height:32px;border-radius:50%;border:none;background:rgba(253,252,250,.82);box-shadow:0 1px 6px rgba(0,0,0,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
 .sound-btn .icon-off{display:none}
 .sound-btn.muted .icon-on{display:none}
 .sound-btn.muted .icon-off{display:flex}
 
 .hero-gradient{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(20,16,12,.75) 100%);pointer-events:none}
-.hero-text{position:absolute;left:22px;right:22px;bottom:28px;line-height:normal}
-.hero-kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.75);margin-bottom:10px}
+.hero-text{position:absolute;left:22px;right:22px;bottom:82px;line-height:normal}
+.hero-kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;color:rgba(255,255,255,.75);margin-bottom:10px}
 .hero-names{font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;line-height:1.1;margin-bottom:10px}
-.hero-date{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:rgba(255,255,255,.8)}
-.hero-top-label{position:absolute;top:20px;left:22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.28em;color:rgba(255,255,255,.85)}
-.next-pill{position:absolute;right:22px;bottom:24px;display:flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.5);background:rgba(20,16,12,.35);border-radius:999px;padding:8px 15px;cursor:pointer;font-size:14px;line-height:normal;color:#fff;animation:arrowBob 1.6s ease-in-out infinite}
+.hero-date{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:rgba(255,255,255,.8)}
+.hero-top-label{position:absolute;top:20px;left:22px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.28em;color:rgba(255,255,255,.85)}
 
-.letter-body{margin:0 0 40px;max-width:400px;font-size:15.5px;line-height:2.1;color:#4a453f;text-wrap:pretty;white-space:pre-line}
-.side-label{font-size:12px;letter-spacing:.1em;color:#a4988a;margin-bottom:8px}
-.side-parents{font-size:16px;font-weight:700;color:#3a3733;margin-bottom:6px}
-.side-child{font-size:14.5px;color:#6f6a63;margin-bottom:30px}
-.lang-toggle{position:absolute;top:10px;right:22px;z-index:50;display:flex;gap:2px;background:rgba(0,0,0,.05);border-radius:999px;padding:3px}
-.lang-toggle button{border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:transparent;color:#6f6a63}
+.letter-body{margin:0 0 40px;max-width:400px;font-size:16px;line-height:2.1;color:#4a453f;text-wrap:pretty;white-space:pre-line}
+.side-label{font-size:13px;letter-spacing:.1em;color:#a4988a;margin-bottom:8px}
+.side-parents{font-size:17.5px;font-weight:700;color:#3a3733;margin-bottom:6px}
+.side-child{font-size:16px;color:#6f6a63;margin-bottom:30px}
+.lang-toggle{position:static;display:flex;gap:2px;background:rgba(253,252,250,.82);box-shadow:0 1px 6px rgba(0,0,0,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:999px;padding:3px}
+.lang-toggle button{border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:transparent;color:#6f6a63}
 html[data-lang="ko"] #btnKo{background:#3a3733;color:#fff}
 html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 
 .cal-month{font-family:'Cormorant Garamond',serif;font-size:34px;color:#3a3733;line-height:1}
-.cal-year{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a09a92;margin-top:8px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-family:'IBM Plex Mono',monospace;font-size:12px;max-width:340px}
-.cal-head{text-align:center;color:#a09a92;padding:4px 0;font-size:10.5px}
+.cal-year{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#a09a92;margin-top:8px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;max-width:340px}
+.cal-head{text-align:center;color:#a09a92;padding:4px 0;font-size:12px}
 .cal-head.sun{color:#c0968a}
 .cal-cell{text-align:center;padding:7px 0;color:#4a453f;border-radius:50%}
 .cal-cell.blank{color:transparent}
 .cal-cell.sun{color:#c0968a}
 .cal-cell.highlight{color:#fff;background:#8a7a6a}
-.cal-footer{margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08);font-size:13.5px;color:#6f6a63;max-width:340px}
+.cal-footer{margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08);font-size:15px;color:#6f6a63;max-width:340px}
 
-.venue-name{font-size:18px;color:#4a453f;margin-bottom:6px}
-.venue-addr{font-size:14.5px;color:#6f6a63;line-height:1.8}
-.link-btn{margin-top:22px;border:none;background:none;padding:0;cursor:pointer;font-size:14.5px;color:#4a453f;text-decoration:underline;text-align:left;display:block}
-.parking-body{margin:12px 0 0;max-width:400px;font-size:14px;line-height:1.85;color:#6f6a63;display:none}
+.venue-name{font-size:19px;color:#4a453f;margin-bottom:6px}
+.venue-addr{font-size:16px;color:#6f6a63;line-height:1.8}
+.link-btn{margin-top:22px;border:none;background:none;padding:0;cursor:pointer;font-size:16px;color:#4a453f;text-decoration:underline;text-align:left;display:block}
+.parking-body{margin:12px 0 0;max-width:400px;font-size:15.5px;line-height:1.85;color:#6f6a63;display:none}
 .parking-body.open{display:block}
-.map-modal{position:absolute;inset:0;z-index:80;background:rgba(20,17,14,.55);display:none;align-items:center;justify-content:center;padding:24px}
+.map-modal{position:fixed;inset:0;z-index:80;background:rgba(20,17,14,.55);display:none;align-items:center;justify-content:center;padding:24px}
 .map-modal.open{display:flex}
 .map-card{background:#fdfcfa;border-radius:6px;max-width:340px;width:100%;padding:22px 22px 24px;box-shadow:0 12px 34px rgba(0,0,0,.25);position:relative}
 .map-close{position:absolute;top:14px;right:14px;border:none;background:none;cursor:pointer;font-size:18px;color:#a09a92;line-height:1;padding:4px}
-.map-title{font-size:16.5px;color:#3a3733;margin-bottom:4px;padding-right:24px}
-.map-addr{font-size:13px;color:#8a7a6a;margin-bottom:16px;white-space:pre-line}
+.map-title{font-size:18px;color:#3a3733;margin-bottom:4px;padding-right:24px}
+.map-addr{font-size:14.5px;color:#8a7a6a;margin-bottom:16px;white-space:pre-line}
 .map-img-wrap{border-radius:4px;overflow:hidden;border:1px solid rgba(0,0,0,.08);margin-bottom:16px}
 .map-img-wrap img{display:block;width:100%;height:280px;object-fit:cover}
 .map-links{display:flex;gap:8px}
-.map-links a{flex:1;text-align:center;font-size:12.5px;padding:10px 0;border-radius:4px;color:#4a453f;background:#efece6}
+.map-links a{flex:1;text-align:center;font-size:14px;padding:10px 0;border-radius:4px;color:#4a453f;background:#efece6}
 .bus-box{margin:36px auto 0;max-width:460px;background:#e7e3dd;border-radius:4px;padding:24px 26px;text-align:left}
-.bus-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.26em;color:#8a7a6a;margin-bottom:10px}
-.bus-body{margin:0;font-size:14.5px;line-height:1.95;color:#4a453f}
+.bus-title{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.26em;color:#8a7a6a;margin-bottom:10px}
+.bus-body{margin:0;font-size:16px;line-height:1.95;color:#4a453f}
 .bus-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.bus-links a{font-size:12.5px;padding:8px 14px;border-radius:999px;background:#fdfcfa;color:#4a453f}
+.bus-links a{font-size:14px;padding:8px 14px;border-radius:999px;background:#fdfcfa;color:#4a453f}
 
 .gallery-viewport{position:relative}
 .gallery-grid{display:none;gap:10px}
@@ -115,80 +118,125 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 .gallery-dots button.active{background:#8a7a6a}
 
 .acct-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#3a3733;margin-bottom:16px}
-.acct-intro{text-align:left;margin:0 0 34px;font-size:14.5px;line-height:1.9;color:#6f6a63;white-space:pre-line}
+.acct-intro{text-align:left;margin:0 0 34px;font-size:16px;line-height:1.9;color:#6f6a63;white-space:pre-line}
 .acct-list{display:flex;flex-direction:column;max-width:460px}
 .acct-group{border-top:1px solid rgba(0,0,0,.1)}
 .acct-group.last{border-bottom:1px solid rgba(0,0,0,.1)}
 .acct-header{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;padding:18px 0;cursor:pointer}
-.acct-header span:first-child{font-size:15px;font-weight:700;color:#3a3733}
+.acct-header span:first-child{font-size:16.5px;font-weight:700;color:#3a3733}
 .acct-icon{font-size:18px;color:#8a7a6a;font-weight:300}
 .acct-body{display:none;flex-direction:column;gap:12px;padding-bottom:20px}
 .acct-body.open{display:flex}
 .acct-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.acct-info{font-size:14px;color:#4a453f;line-height:1.6}
-.acct-info .num{font-family:'IBM Plex Mono',monospace;font-size:13px}
-.acct-info .holder{display:block;font-size:13px;color:#6f6a63}
-.copy-btn{flex:none;border:1px solid rgba(0,0,0,.14);background:#fff;color:#6f6a63;border-radius:999px;font-size:12px;padding:6px 14px;cursor:pointer}
+.acct-info{font-size:15.5px;color:#4a453f;line-height:1.6}
+.acct-info .num{font-family:'IBM Plex Mono',monospace;font-size:15px}
+.acct-info .holder{display:block;font-size:14.5px;color:#6f6a63}
+.copy-btn{flex:none;border:1px solid rgba(0,0,0,.14);background:#fff;color:#6f6a63;border-radius:999px;font-size:13.5px;padding:6px 14px;cursor:pointer}
 .copy-btn.copied{background:#8a7a6a;color:#fff;border-color:#8a7a6a}
 .copy-btn .copied-label{display:none}
 .copy-btn.copied .copy-label{display:none}
 .copy-btn.copied .copied-label{display:inline}
 
 .rsvp-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#3a3733;margin-bottom:16px}
-.rsvp-intro{max-width:460px;margin:0 0 26px;font-size:13.5px;line-height:1.85;color:#6f6a63;white-space:pre-line}
+.rsvp-intro{max-width:460px;margin:0 0 26px;font-size:15px;line-height:1.85;color:#6f6a63;white-space:pre-line}
 .rsvp-fields{max-width:460px;display:flex;flex-direction:column;gap:24px}
-.field-label{font-size:12px;letter-spacing:.06em;color:#a4988a;margin-bottom:8px}
-.field-hint{font-size:12px;color:#a09a92;margin-bottom:12px;margin-top:-4px}
-.name-input{width:100%;box-sizing:border-box;border:none;border-radius:4px;padding:13px 14px;font-size:14.5px;background:#e9e5df;outline:none;color:#3a3733}
+.field-label{font-size:13.5px;letter-spacing:.06em;color:#a4988a;margin-bottom:8px}
+.field-hint{font-size:13.5px;color:#a09a92;margin-bottom:12px;margin-top:-4px}
+.name-input{width:100%;box-sizing:border-box;border:none;border-radius:4px;padding:13px 14px;font-size:16px;background:#e9e5df;outline:none;color:#3a3733}
 .opt-row{display:flex;gap:8px}
-.opt-btn{flex:1;padding:11px 0;border-radius:4px;border:none;background:#e9e5df;color:#6f6a63;font-size:13.5px;cursor:pointer}
+.opt-btn{flex:1;padding:11px 0;border-radius:4px;border:none;background:#e9e5df;color:#6f6a63;font-size:15px;cursor:pointer}
 .opt-btn.active{background:#2e2b28;color:#fff}
 .comp-stepper{display:flex;align-items:center;gap:16px;background:#e9e5df;border-radius:4px;padding:8px 14px;width:fit-content}
-.comp-stepper button{width:26px;height:26px;border-radius:50%;border:none;background:#fff;cursor:pointer;font-size:15px;color:#3a3733}
-.comp-count{font-family:'IBM Plex Mono',monospace;font-size:14px;min-width:16px;text-align:center}
+.comp-stepper button{width:26px;height:26px;border-radius:50%;border:none;background:#fff;cursor:pointer;font-size:17px;color:#3a3733}
+.comp-count{font-family:'IBM Plex Mono',monospace;font-size:16px;min-width:16px;text-align:center}
 .bus-opt{flex:1;display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:4px;border:none;background:#f2efe9;cursor:pointer;text-align:left}
 .bus-opt.active{background:#e9e5df}
-.bus-opt .box{flex:none;width:16px;height:16px;border-radius:3px;border:1.5px solid rgba(0,0,0,.3);background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;line-height:1}
+.bus-opt .box{flex:none;width:16px;height:16px;border-radius:3px;border:1.5px solid rgba(0,0,0,.3);background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1}
 .bus-opt.active .box{border-color:#2e2b28;background:#2e2b28}
 .bus-opt .box::after{content:''}
 .bus-opt.active .box::after{content:'✓'}
-.bus-opt .lbl{font-size:13px;color:#4a453f;line-height:1.5;white-space:pre-line}
-.submit-btn{margin-top:6px;padding:15px 0;border-radius:4px;border:none;background:#2e2b28;color:#fff;font-size:15px;letter-spacing:.1em;cursor:pointer}
+.bus-opt .lbl{font-size:14.5px;color:#4a453f;line-height:1.5;white-space:pre-line}
+.submit-btn{margin-top:6px;padding:15px 0;border-radius:4px;border:none;background:#2e2b28;color:#fff;font-size:16.5px;letter-spacing:.1em;cursor:pointer}
 .submit-btn:hover{background:#1c1a18}
-.form-error{text-align:center;font-size:13px;color:#b0705f;margin-top:-14px;display:none}
+.form-error{text-align:center;font-size:14.5px;color:#b0705f;margin-top:-14px;display:none}
 .form-error.show{display:block}
 .rsvp-thanks{display:none;max-width:460px;text-align:left;animation:fadeUp .5s ease}
 .rsvp-thanks.show{display:block}
 .thanks-cursive{font-family:'Alex Brush',cursive;font-size:40px;color:#a4988a;margin-bottom:14px}
-.thanks-body{font-size:15px;line-height:1.9;color:#4a453f;white-space:pre-line}
-.edit-btn{margin-top:22px;border:none;background:none;color:#8a7a6a;font-size:13px;text-decoration:underline;cursor:pointer;padding:0}
+.thanks-body{font-size:16.5px;line-height:1.9;color:#4a453f;white-space:pre-line}
+.edit-btn{margin-top:22px;border:none;background:none;color:#8a7a6a;font-size:14.5px;text-decoration:underline;cursor:pointer;padding:0}
 
 .closing-cursive{font-family:'Alex Brush',cursive;font-size:38px;color:#8a7a6a}
-.closing-date{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#a09a92}
-.kakao-share-btn{margin-top:30px;border:none;background:#fddc3f;color:#3a3733;padding:12px 22px;border-radius:6px;font-size:13.5px;cursor:pointer}
+.closing-date{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;color:#a09a92}
+.kakao-share-btn{margin-top:30px;border:none;background:#fddc3f;color:#3a3733;padding:12px 22px;border-radius:6px;font-size:15px;cursor:pointer}
+
+/* Sideways mode. Nothing here applies until the first gesture picks an axis. */
+html[data-mode="h"],html[data-mode="h"] body{height:100%;overflow:hidden}
+html[data-mode="h"] .phone{aspect-ratio:9/16;max-height:100svh;overflow:hidden}
+html[data-mode="h"] .pager{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab}
+html[data-mode="h"] .page{flex:none;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start}
+html[data-mode="h"] .page+.page{border-top:none}
+html[data-mode="h"] .center-pad{min-height:100%;justify-content:center}
+html[data-mode="h"] .gallery-viewport{touch-action:pan-y}
+
+/* The hint has one job: get the first gesture out of the guest. Until an axis
+   is picked it offers both; once one is picked it has done its job and goes. */
+.cue-wrap{position:absolute;left:0;right:0;bottom:193px;display:flex;justify-content:center;pointer-events:none}
+.scroll-cue{display:flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.55);background:rgba(20,16,12,.46);
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+  border-radius:999px;padding:10px 18px;font-size:14.5px;line-height:normal;color:#fff;white-space:nowrap;
+  animation:cueBob 2s ease-in-out infinite}
+@keyframes cueBob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+html[data-mode] .cue-wrap{display:none}
+
+/* Sideways mode has no scrollbar and no visible continuation, so it keeps
+   standing arrows the way the original paged invitation did. */
+.pager-nav{display:none;position:absolute;bottom:22px;width:32px;height:32px;border:none;background:transparent;cursor:pointer;padding:0;z-index:40}
+html[data-mode="h"] .pager-nav{display:block}
+.pager-nav[disabled]{opacity:0;pointer-events:none}
+.pager-nav.prev{left:20px;opacity:.55}
+.pager-nav.next{right:20px;animation:arrowBob 1.6s ease-in-out infinite}
+
+/* The cover is an overlay, not a section. It has to be off the screen before
+   the axis question is asked at all - otherwise the first instinctive swipe
+   down would answer it before the guest has seen the hint. */
+.cover-stage{position:fixed;inset:0;z-index:60;perspective:1500px;overflow:hidden}
+.cover{position:absolute;inset:0;background:#f2ece4;display:flex;align-items:center;justify-content:center;
+  transform-origin:50% 0;backface-visibility:hidden;cursor:pointer;
+  transition:transform 1s cubic-bezier(.62,.03,.3,1)}
+.cover.lifted{transform:rotateX(-96deg)}
+.cover-sheet{position:relative;width:100%;max-width:450px}
+.cover-sheet img{display:block;width:100%;height:auto}
+html.cover-up,html.cover-up body{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.cover{transition-duration:.3s}.cover.lifted{transform:translateY(-100%)}}
 </style>
 </head>
 <body>
-<div class="phone">
-<div class="pager no-scrollbar" id="pager">
-
-<!-- PAGE 0: COVER -->
-<section class="page no-scrollbar" style="background:#f2ece4">
-  <div style="position:relative;width:100%">
-    <img src="images/cover.webp" alt="The marriage of Dawon and Hui Zhi" style="display:block;width:100%;height:auto">
-    <button class="seal-btn" id="sealBtn" aria-label="Open invitation"></button>
-    <div class="seal-hint"><div>open the seal</div><div style="margin-top:5px">↓ 봉인을 눌러주세요 ↓</div></div>
-  </div>
+<div class="hud"><div class="hud-row">
+    <div class="lang-toggle">
+      <button id="btnKo" data-lang-btn="ko">KO</button><button id="btnEn" data-lang-btn="en">EN</button>
+    </div>
   <audio id="bgm" src="audio/bgm.mp3" loop></audio>
   <button class="sound-btn" id="soundBtn" aria-label="Toggle music">
     <svg class="icon-on" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5c554c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"></path><path d="M16 8a5 5 0 010 8"></path><path d="M18.5 5.5a9 9 0 010 13"></path></svg>
     <svg class="icon-off" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5c554c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 5V4L8 9H4z"></path><path d="M16 9l5 6M21 9l-5 6"></path></svg>
   </button>
-</section>
+</div></div>
+<div class="cover-stage" id="coverStage">
+  <div class="cover" id="cover">
+    <div class="cover-sheet">
+      <img src="images/cover.webp" alt="The marriage of Dawon and Hui Zhi">
+      <button class="seal-btn" id="sealBtn" aria-label="Open invitation"></button>
+      <div class="seal-hint"><div>open the seal</div><div style="margin-top:5px">↓ 봉인을 눌러주세요 ↓</div></div>
+    </div>
+  </div>
+</div>
+<div class="phone">
+<div class="pager no-scrollbar" id="pager">
 
-<!-- PAGE 1: HERO -->
+<!-- PAGE 0: HERO -->
 <section class="page no-scrollbar" style="overflow:hidden;background:#dedad4;font-size:0;line-height:0">
-  <div style="position:absolute;inset:0;width:100%">
+  <div style="position:relative;width:100%">
     <div class="hero-gradient"></div>
     <div class="hero-text">
       <div class="hero-kicker">THE WEDDING OF</div>
@@ -200,17 +248,19 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
     </div>
     <div class="hero-top-label">INVITATION</div>
     <img src="images/hero.webp" alt="Dawon and Hui Zhi" style="display:block;width:100%;height:auto">
-    <button class="next-pill" data-next aria-label="Next page">
-      <span class="lang-ko">다음</span><span class="lang-en">Next</span>
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg>
-    </button>
+    <div class="cue-wrap">
+      <div class="scroll-cue">
+        <span class="lang-ko">아래로 ↓ 또는 옆으로 →</span>
+        <span class="lang-en">Scroll ↓ or swipe →</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PAGE 2: LETTER -->
 <section class="page no-scrollbar">
   <div class="label">LETTER</div>
-  <div class="center-pad" style="padding:72px 28px">
+  <div class="center-pad" style="padding:72px 22px">
     <div class="rule"></div>
     <p class="letter-body lang-ko">서로에게 가장 좋은 친구이자
 든든한 동반자가 되기로 약속한 두 사람이
@@ -242,12 +292,7 @@ as we celebrate the start of our life together.</p>
       <div class="side-child" style="margin-bottom:0">Hui Zhi, daughter of</div>
     </div>
 
-    <div class="lang-toggle">
-      <button id="btnKo" data-lang-btn="ko">KO</button><button id="btnEn" data-lang-btn="en">EN</button>
-    </div>
   </div>
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
-  <button class="nav-btn nav-next" data-next aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </section>
 
 <!-- PAGE 3: CALENDAR -->
@@ -265,8 +310,6 @@ as we celebrate the start of our life together.</p>
       </div>
     </div>
   </div>
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
-  <button class="nav-btn nav-next" data-next aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </section>
 
 <!-- PAGE 4: VENUE -->
@@ -311,8 +354,8 @@ as we celebrate the start of our life together.</p>
         <span class="lang-ko">SHUTTLE BUS · 서울 ↔ 대전</span><span class="lang-en">SHUTTLE BUS · SEOUL ↔ DAEJEON</span>
       </div>
       <p class="bus-body">
-        <span class="lang-ko">서울에서 오시는 분들을 위해 전세버스를 운행합니다.<br>갈 때 오전 8시 <strong>온수역 6번 출구</strong> 출발,<br>올 때 오후 2시 <strong>카이스트 노천극장 입구</strong> 출발입니다.<br>마지막 페이지의 참석 여부 회신(RSVP)에서 버스 이용 여부를 꼭 체크해 주세요.</span>
-        <span class="lang-en">A chartered bus will run for guests coming from Seoul.<br>Departs 8:00 AM from <strong>Onsu Station Exit 6</strong>;<br>returns 2:00 PM from the <strong>KAIST Amphitheater entrance</strong>.<br>Please be sure to tick the bus option in the RSVP on the last page.</span>
+        <span class="lang-ko">서울에서 오시는 분들을 위해 전세버스를 운행합니다.<br>갈 때 오전 8시 <strong>온수역 6번 출구</strong> 출발,<br>올 때 오후 2시 <strong>카이스트 노천극장 입구</strong> 출발입니다.<br>맨 아래 참석 여부 회신(RSVP)에서 버스 이용 여부를 꼭 체크해 주세요.</span>
+        <span class="lang-en">A chartered bus will run for guests coming from Seoul.<br>Departs 8:00 AM from <strong>Onsu Station Exit 6</strong>;<br>returns 2:00 PM from the <strong>KAIST Amphitheater entrance</strong>.<br>Please be sure to tick the bus option in the RSVP at the bottom of this page.</span>
       </p>
       <div class="bus-links">
         <a href="https://map.naver.com/p/search/%EC%98%A8%EC%88%98%EC%97%AD%206%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank"><span class="lang-ko">온수역 6번 출구</span><span class="lang-en">Onsu Stn. Exit 6</span> →</a>
@@ -320,8 +363,6 @@ as we celebrate the start of our life together.</p>
       </div>
     </div>
   </div>
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
-  <button class="nav-btn nav-next" data-next aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </section>
 
 <!-- PAGE 5: GALLERY -->
@@ -353,8 +394,6 @@ as we celebrate the start of our life together.</p>
       <button data-gdot="0" class="active"></button><button data-gdot="1"></button><button data-gdot="2"></button><button data-gdot="3"></button>
     </div>
   </div>
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
-  <button class="nav-btn nav-next" data-next aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </section>
 
 <!-- PAGE 6: ACCOUNTS -->
@@ -411,8 +450,6 @@ We will remember your kindness always.</span>
       </div>
     </div>
   </div>
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
-  <button class="nav-btn nav-next" data-next aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </section>
 
 <!-- PAGE 7: RSVP -->
@@ -496,13 +533,10 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
       </div>
     </div>
   </div>
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
-  <button class="nav-btn nav-next" data-next aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </section>
 
 <!-- PAGE 8: CLOSING -->
 <section class="page no-scrollbar">
-  <button class="nav-btn nav-prev" data-prev aria-label="Previous page" style="z-index:20"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
   <div class="center-pad" style="align-items:center;text-align:center">
     <div class="closing-cursive">Dawon and Hui Zhi</div>
     <div class="rule" style="margin:24px 0"></div>
@@ -512,83 +546,173 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
 </section>
 
 </div>
-<div class="peek" id="peek"></div>
+<button class="pager-nav prev" id="navPrev" aria-label="Previous page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H6M11 6l-6 6 6 6"></path></svg></button>
+<button class="pager-nav next" id="navNext" aria-label="Next page"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a7a6a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"></path></svg></button>
 </div>
 
 <script>
 (function(){
-  var pageCount = 9;
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  var root = document.documentElement;
   var pager = document.getElementById('pager');
   var pages = pager.querySelectorAll('.page');
-  var peek = document.getElementById('peek');
+  var pageCount = pages.length;
   var state = { page: 0, galleryPage: 0, soundOn: true };
 
-  function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
-  function smoothScrollTo(el, left, duration){
-    duration = duration || 650;
-    var start = el.scrollLeft, dist = left - start;
-    if (dist === 0) return;
-    var prevSnap = el.style.scrollSnapType;
-    el.style.scrollSnapType = 'none';
-    var startTime = performance.now();
-    function step(now){
-      var t = Math.min(1, (now - startTime) / duration);
-      el.scrollLeft = start + dist * easeOutCubic(t);
-      if (t < 1) requestAnimationFrame(step);
-      else el.style.scrollSnapType = prevSnap || 'x mandatory';
+  // ---- axis mode -------------------------------------------------------
+  // The invitation ships with no committed direction and no arrows. It lays
+  // out as one vertical scroll; a sideways swipe flips it into the paged
+  // layout. Whichever axis the guest reaches for first is the one it keeps.
+  var mode = null;                                  // null | 'v' | 'h'
+  function isH(){ return mode === 'h'; }
+
+  function currentIndex(){
+    if (isH()) return Math.round(pager.scrollLeft / (pager.clientWidth || 1));
+    var line = window.innerHeight * 0.4, cur = 0;
+    for (var i = 0; i < pageCount; i++){ if (pages[i].getBoundingClientRect().top <= line) cur = i; }
+    return cur;
+  }
+
+  function lock(m){
+    if (mode) return;
+    var idx = currentIndex();                        // read before the layout changes
+    mode = m;
+    root.dataset.mode = m;
+    if (m === 'h'){
+      pager.style.scrollSnapType = 'none';           // jump, do not animate, to where they were
+      pager.scrollLeft = idx * pager.clientWidth;
+      void pager.offsetWidth;                        // flush the jump before snapping is armed again
+      pager.style.scrollSnapType = '';
     }
-    requestAnimationFrame(step);
-  }
-  function updatePeek(){
-    peek.style.display = (state.page > 1 && state.page < pageCount - 1) ? 'block' : 'none';
-  }
-  function goPage(i){
-    var clamped = Math.max(0, Math.min(pageCount - 1, i));
-    state.page = clamped;
-    smoothScrollTo(pager, clamped * pager.clientWidth);
-    updatePeek();
-  }
-  document.querySelectorAll('[data-prev]').forEach(function(b){ b.addEventListener('click', function(){ goPage(state.page - 1); }); });
-  document.querySelectorAll('[data-next]').forEach(function(b){ b.addEventListener('click', function(){ goPage(state.page + 1); }); });
-
-  pager.addEventListener('scroll', function(){
-    var w = pager.clientWidth || 1;
-    var idx = Math.round(pager.scrollLeft / w);
-    if (idx !== state.page){ state.page = idx; updatePeek(); }
-  });
-
-  var drag = null;
-  pager.addEventListener('pointerdown', function(e){
-    if (e.pointerType === 'touch') return;
-    if (e.target.closest && e.target.closest('button, a, input')) return;
-    drag = { active: true, startX: e.clientX, scrollLeft: pager.scrollLeft };
-    pager.style.scrollSnapType = 'none';
-    pager.setPointerCapture && pager.setPointerCapture(e.pointerId);
-  });
-  pager.addEventListener('pointermove', function(e){
-    if (!drag || !drag.active) return;
-    var dx = e.clientX - drag.startX;
-    pager.scrollLeft = drag.scrollLeft - dx;
-  });
-  function endDrag(){
-    if (!drag || !drag.active) return;
-    drag.active = false;
-    pager.style.scrollSnapType = 'x mandatory';
-    var w = pager.clientWidth || 1;
-    var idx = Math.round(pager.scrollLeft / w);
-    smoothScrollTo(pager, idx * w);
     state.page = idx;
-    updatePeek();
+    syncNav();
   }
-  pager.addEventListener('pointerup', endDrag);
-  pager.addEventListener('pointerleave', endDrag);
-  pager.addEventListener('pointercancel', endDrag);
 
-  // seal
+  function goPage(i){
+    var idx = Math.max(0, Math.min(pageCount - 1, i));
+    if (isH()) pager.scrollTo({ left: idx * pager.clientWidth, behavior: 'smooth' });
+    else window.scrollTo({ top: pages[idx].getBoundingClientRect().top + window.pageYOffset, behavior: 'smooth' });
+    state.page = idx;
+    syncNav();
+  }
+
+  var navPrev = document.getElementById('navPrev'), navNext = document.getElementById('navNext');
+  navPrev.addEventListener('click', function(){ goPage(state.page - 1); });
+  navNext.addEventListener('click', function(){ goPage(state.page + 1); });
+  function syncNav(){
+    navPrev.disabled = state.page <= 0;
+    navNext.disabled = state.page >= pageCount - 1;
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){ state.page = currentIndex(); syncNav(); ticking = false; });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  pager.addEventListener('scroll', onScroll, { passive: true });
+
+  syncNav();
+
+  // ---- the cover ---------------------------------------------------------
+  var coverStage = document.getElementById('coverStage');
+  var cover = document.getElementById('cover');
   var sealBtn = document.getElementById('sealBtn');
-  sealBtn.addEventListener('click', function(){
-    sealBtn.classList.add('opening');
-    setTimeout(function(){ goPage(1); }, 900);
+  var axisArmed = false;                 // no gesture counts until the cover is gone
+  root.classList.add('cover-up');
+  window.scrollTo(0, 0);
+
+  function dismissCover(){
+    if (!coverStage || coverStage.dataset.gone) return;
+    coverStage.dataset.gone = '1';
+    sealBtn.classList.add('opening');    // the seal breaks as the sheet lifts
+    cover.classList.add('lifted');
+    root.classList.remove('cover-up');
+    window.scrollTo(0, 0);
+    // The gesture that lifted the cover must not also pick an axis, so the
+    // detectors stay asleep until the sheet is on its way out.
+    setTimeout(function(){ axisArmed = true; }, 820);
+    setTimeout(function(){ coverStage.style.display = 'none'; }, 1120);
+  }
+  coverStage.addEventListener('click', dismissCover);
+  coverStage.addEventListener('touchmove', dismissCover, { passive: true });
+  coverStage.addEventListener('wheel', dismissCover, { passive: true });
+
+  // ---- first gesture decides the axis ----------------------------------
+  // The gallery runs its own sideways swipe, so a drag that starts there must
+  // not be read as a request for the paged layout.
+  var OWN_SWIPE = '.gallery-viewport, .map-modal';
+  var g = null;
+  document.addEventListener('touchstart', function(e){
+    if (!axisArmed || mode || !e.touches.length) return;
+    if (e.target.closest && e.target.closest(OWN_SWIPE)) { g = null; return; }
+    g = { x: e.touches[0].clientX, y: e.touches[0].clientY, dx: 0, flipped: false };
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e){
+    if (!axisArmed || !g || !e.touches.length) return;
+    g.dx = e.touches[0].clientX - g.x;
+    var dy = e.touches[0].clientY - g.y, ax = Math.abs(g.dx), ay = Math.abs(dy);
+    if (mode) return;
+    if (ax < 16 && ay < 16) return;
+    if (ax > ay * 1.2){ lock('h'); g.flipped = true; }
+    else { lock('v'); g = null; }
+  }, { passive: true });
+  document.addEventListener('touchend', function(){
+    // the swipe that flipped the layout should still turn the page it asked for
+    if (g && g.flipped){
+      if (g.dx < -40) goPage(state.page + 1);
+      else if (g.dx > 40) goPage(state.page - 1);
+    }
+    g = null;
+  }, { passive: true });
+
+  window.addEventListener('wheel', function(e){
+    if (!axisArmed || mode) return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) + 2) lock('h');
+    else if (e.deltaY) lock('v');
+  }, { passive: true });
+
+  window.addEventListener('keydown', function(e){
+    if (e.target.closest && e.target.closest('input, textarea')) return;
+    if (!axisArmed){ dismissCover(); return; }
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowLeft'){
+      lock('h');
+      goPage(state.page + (k === 'ArrowRight' ? 1 : -1));
+    } else if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'PageDown' || k === 'PageUp'){
+      lock('v');
+      if (isH()){ e.preventDefault(); goPage(state.page + ((k === 'ArrowDown' || k === 'PageDown') ? 1 : -1)); }
+    }
+  });
+
+  // mouse: a sideways drag both picks the axis and then drives the pager
+  var drag = null, probe = null;
+  pager.addEventListener('pointerdown', function(e){
+    if (!axisArmed || e.pointerType === 'touch') return;
+    if (e.target.closest && e.target.closest('button, a, input')) return;
+    if (isH()){ drag = { x: e.clientX, left: pager.scrollLeft }; pager.style.scrollSnapType = 'none'; }
+    else if (!mode) probe = { x: e.clientX, y: e.clientY };
+  });
+  window.addEventListener('pointermove', function(e){
+    if (probe){
+      var dx = e.clientX - probe.x, dy = e.clientY - probe.y;
+      if (Math.abs(dx) > 16 && Math.abs(dx) > Math.abs(dy)){
+        lock('h');
+        drag = { x: e.clientX, left: pager.scrollLeft };
+        pager.style.scrollSnapType = 'none';
+        probe = null;
+      }
+      return;
+    }
+    if (drag) pager.scrollLeft = drag.left - (e.clientX - drag.x);
+  });
+  window.addEventListener('pointerup', function(){
+    probe = null;
+    if (!drag) return;
+    drag = null;
+    pager.style.scrollSnapType = '';
+    goPage(Math.round(pager.scrollLeft / (pager.clientWidth || 1)));
   });
 
   // audio
@@ -774,7 +898,6 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
     });
   });
 
-  updatePeek();
 })();
 </script>
 </body>
