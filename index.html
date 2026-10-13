@@ -95,6 +95,7 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 .map-links a{flex:1;text-align:center;font-size:14px;padding:10px 0;border-radius:4px;color:#4a453f;background:#efece6}
 .bus-box{margin:36px auto 0;max-width:460px;background:#e7e3dd;border-radius:4px;padding:24px 26px;text-align:left}
 .bus-title{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.26em;color:#8a7a6a;margin-bottom:10px}
+.bus-closed{display:inline-block;margin-left:9px;padding:3px 9px;border-radius:999px;background:#b9b0a3;color:#fdfcfa;font-size:11px;letter-spacing:.08em;vertical-align:middle}
 .bus-body{margin:0;font-size:16px;line-height:1.95;color:#4a453f}
 .bus-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .bus-links a{font-size:14px;padding:8px 14px;border-radius:999px;background:#fdfcfa;color:#4a453f}
@@ -362,11 +363,11 @@ as we celebrate the start of our life together.</p>
 
     <div class="bus-box">
       <div class="bus-title">
-        <span class="lang-ko">SHUTTLE BUS · 서울 ↔ 대전</span><span class="lang-en">SHUTTLE BUS · SEOUL ↔ DAEJEON</span>
+        <span class="lang-ko">SHUTTLE BUS · 서울 ↔ 대전</span><span class="lang-en">SHUTTLE BUS · SEOUL ↔ DAEJEON</span><span class="bus-closed"><span class="lang-ko">신청 마감</span><span class="lang-en">CLOSED</span></span>
       </div>
       <p class="bus-body">
-        <span class="lang-ko">서울에서 오시는 분들을 위해 전세버스를 운행합니다.<br>갈 때 오전 8시 <strong>온수역 6번 출구</strong> 출발,<br>올 때 오후 2시 <strong>카이스트 노천극장 입구</strong> 출발입니다.<br>맨 아래 참석 여부 회신(RSVP)에서 버스 이용 여부를 꼭 체크해 주세요.</span>
-        <span class="lang-en">A chartered bus will run for guests coming from Seoul.<br>Departs 8:00 AM from <strong>Onsu Station Exit 6</strong>;<br>returns 2:00 PM from the <strong>KAIST Amphitheater entrance</strong>.<br>Please be sure to tick the bus option in the RSVP at the bottom of this page.</span>
+        <span class="lang-ko">서울에서 오시는 분들을 위해 전세버스를 운행합니다.<br>갈 때 오전 8시 <strong>온수역 6번 출구</strong> 출발,<br>올 때 오후 2시 <strong>카이스트 노천극장 입구</strong> 출발입니다.<br><strong>신청은 마감되었습니다.</strong> 이미 신청하신 분들은 예정대로 운행하니 출발 시간에 맞춰 와주세요.</span>
+        <span class="lang-en">A chartered bus will run for guests coming from Seoul.<br>Departs 8:00 AM from <strong>Onsu Station Exit 6</strong>;<br>returns 2:00 PM from the <strong>KAIST Amphitheater entrance</strong>.<br><strong>Sign-ups are now closed.</strong> If you have already reserved a seat, the bus runs as scheduled - please be there on time.</span>
       </p>
       <div class="bus-links">
         <a href="https://map.naver.com/p/search/%EC%98%A8%EC%88%98%EC%97%AD%206%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank"><span class="lang-ko">온수역 6번 출구</span><span class="lang-en">Onsu Stn. Exit 6</span> →</a>
@@ -483,11 +484,9 @@ We look forward to seeing you on October 24.</span>
       <div class="rsvp-title"><span class="lang-ko">참석 회신</span><span class="lang-en">RSVP</span></div>
       <p class="rsvp-intro">
         <span class="lang-ko">축하의 마음으로 참석해 주시는 한 분 한 분을
-소중히 모실 수 있도록 참석 여부를 알려주세요.
-전세버스를 이용하시는 분은 수요 조사를 위해 가능한 한 빨리 회신해 주시면 큰 도움이 됩니다.</span>
+소중히 모실 수 있도록 참석 여부를 알려주세요.</span>
         <span class="lang-en">So that we may warmly welcome each and every guest,
-please let us know if you can join us.
-If you plan to use the shuttle bus, an early reply really helps us plan numbers.</span>
+please let us know if you can join us.</span>
       </p>
       <div class="rsvp-fields">
         <div>
@@ -525,18 +524,6 @@ If you plan to use the shuttle bus, an early reply really helps us plan numbers.
                 <button class="opt-btn" data-value="no"><span class="lang-ko">식사 안 합니다</span><span class="lang-en">Not having the meal</span></button>
               </div>
             </div>
-          </div>
-        </div>
-        <div>
-          <div class="field-label"><span class="lang-ko">전세버스 (온수역 출발)</span><span class="lang-en">Chartered bus (from Onsu Station, optional)</span></div>
-          <div class="field-hint"><span class="lang-ko">이용하시는 방향을 각각 선택해 주세요.</span><span class="lang-en">Tick each direction you need separately.</span></div>
-          <div class="opt-row">
-            <button class="bus-opt" data-bus="busGo"><span class="box"></span><span class="lbl"><span class="lang-ko">서울 → 대전
-오전 8시</span><span class="lang-en">Seoul → Daejeon
-8:00 AM</span></span></button>
-            <button class="bus-opt" data-bus="busReturn"><span class="box"></span><span class="lbl"><span class="lang-ko">대전 → 서울
-오후 2시</span><span class="lang-en">Daejeon → Seoul
-2:00 PM</span></span></button>
           </div>
         </div>
         <button class="submit-btn" id="submitBtn"><span class="lang-ko">회신 보내기</span><span class="lang-en">Send RSVP</span></button>
