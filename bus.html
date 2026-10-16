@@ -63,9 +63,12 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
 
 .foot{margin-top:30px;padding-top:20px;border-top:1px solid rgba(58,55,51,.12);font-size:14.5px;line-height:1.85;color:#6f6a63}
 .foot a{color:#4a453f;text-decoration:underline}
-.contact{margin-top:12px;font-size:17px;line-height:1.7;color:#3a3733}
-.contact .role{font-size:14px;color:#8a7a6a}
-.contact .tel{display:inline-block;margin-top:5px;font-size:19px;font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;color:#3a3733;text-decoration:none;border-bottom:1px solid rgba(138,122,106,.5);padding-bottom:2px}
+.contact{display:flex;align-items:center;gap:15px;background:#fdfcfa;border:1px solid rgba(138,122,106,.4);border-radius:4px;padding:14px 16px;margin:14px 0 22px}
+.contact .c-tag{flex:none;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#a4988a}
+.contact .c-main{flex:1;min-width:0}
+.contact .c-name{font-size:15.5px;color:#3a3733;line-height:1.4}
+.contact .role{font-size:13.5px;color:#8a7a6a}
+.contact .tel{display:inline-block;margin-top:4px;font-size:19.5px;font-family:'IBM Plex Mono',monospace;letter-spacing:.01em;color:#3a3733;text-decoration:none;border-bottom:1px solid rgba(138,122,106,.5);padding-bottom:2px}
 </style>
 </head>
 <body>
@@ -81,6 +84,9 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
   <a class="back" href="./">← <span class="lang-ko">청첩장으로 돌아가기</span><span class="lang-en">Back to the invitation</span></a>
 
   <div class="label"><span class="lang-ko">전세버스 안내</span><span class="lang-en">SHUTTLE BUS</span></div>
+
+  <div class="contact" id="contact"></div>
+
   <h1 class="title"><span class="lang-ko">탑승 확정 명단</span><span class="lang-en">Confirmed riders</span></h1>
   <div class="rule"></div>
 
@@ -138,9 +144,8 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
   <div id="groups"></div>
 
   <div class="foot">
-    <span class="lang-ko">명단 확인이나 당일 버스 관련 문의는 아래로 연락 주세요.</span>
-    <span class="lang-en">For the list, or anything on the day itself, please call:</span>
-    <div class="contact" id="contact"></div>
+    <span class="lang-ko">명단에 이름이 없거나 변경이 필요하시면 맨 위 연락처로 전화 주세요.</span>
+    <span class="lang-en">If your name is missing or you need changes, please call the number at the top.</span>
   </div>
 
 </div>
@@ -244,12 +249,16 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
     var el = document.getElementById('contact');
     if (CONTACT.name && CONTACT.phone){
       var tel = CONTACT.phone.replace(/[^0-9+]/g, '');
-      var link = '<a class="tel" href="tel:' + tel + '">' + CONTACT.phone + '</a>';
-      el.innerHTML = '<span class="lang-ko">' + CONTACT.name + ' <span class="role">(' + CONTACT.ko + ')</span><br>' + link + '</span>' +
-                     '<span class="lang-en">' + CONTACT.name + ' <span class="role">(' + CONTACT.en + ')</span><br>' + link + '</span>';
+      el.innerHTML =
+        '<div class="c-tag"><span class="lang-ko">문의</span><span class="lang-en">CALL</span></div>' +
+        '<div class="c-main">' +
+          '<div class="c-name">' + CONTACT.name +
+            ' <span class="role">(<span class="lang-ko">' + CONTACT.ko + '</span><span class="lang-en">' + CONTACT.en + '</span>)</span>' +
+          '</div>' +
+          '<a class="tel" href="tel:' + tel + '">' + CONTACT.phone + '</a>' +
+        '</div>';
     } else {
-      el.innerHTML = '<span class="lang-ko">신랑·신부에게 연락 주세요.</span>' +
-                     '<span class="lang-en">Please contact the bride or groom.</span>';
+      el.style.display = 'none';   // nothing worth showing an empty card for
     }
   })();
 
