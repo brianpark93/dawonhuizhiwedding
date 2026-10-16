@@ -25,8 +25,9 @@ html[data-lang="ko"] #btnKo{background:#3a3733;color:#fff}
 html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 
 .back{display:inline-block;font-size:14.5px;color:#8a7a6a;margin-bottom:26px}
-.label{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.32em;color:#a4988a}
-.title{font-size:26px;color:#3a3733;margin:10px 0 0}
+.label{font-size:18px;font-weight:700;letter-spacing:.02em;color:#6f6a63}
+html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;letter-spacing:.22em}
+.title{font-size:26px;color:#3a3733;margin:8px 0 0}
 .rule{width:26px;height:1px;background:#a4988a;margin:18px 0 26px}
 
 .card{background:#e7e3dd;border-radius:4px;padding:20px 22px;margin-bottom:12px}
@@ -62,7 +63,9 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 
 .foot{margin-top:30px;padding-top:20px;border-top:1px solid rgba(58,55,51,.12);font-size:14.5px;line-height:1.85;color:#6f6a63}
 .foot a{color:#4a453f;text-decoration:underline}
-.contact{margin-top:10px;font-size:15.5px;color:#3a3733}
+.contact{margin-top:12px;font-size:17px;line-height:1.7;color:#3a3733}
+.contact .role{font-size:14px;color:#8a7a6a}
+.contact .tel{display:inline-block;margin-top:5px;font-size:19px;font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;color:#3a3733;text-decoration:none;border-bottom:1px solid rgba(138,122,106,.5);padding-bottom:2px}
 </style>
 </head>
 <body>
@@ -77,7 +80,7 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 
   <a class="back" href="./">← <span class="lang-ko">청첩장으로 돌아가기</span><span class="lang-en">Back to the invitation</span></a>
 
-  <div class="label">SHUTTLE BUS</div>
+  <div class="label"><span class="lang-ko">전세버스 안내</span><span class="lang-en">SHUTTLE BUS</span></div>
   <h1 class="title"><span class="lang-ko">탑승 확정 명단</span><span class="lang-en">Confirmed riders</span></h1>
   <div class="rule"></div>
 
@@ -135,8 +138,8 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
   <div id="groups"></div>
 
   <div class="foot">
-    <span class="lang-ko">명단에 이름이 없거나 변경이 필요하시면 연락 주세요.</span>
-    <span class="lang-en">If your name is missing or you need changes, please get in touch.</span>
+    <span class="lang-ko">명단 확인이나 당일 버스 관련 문의는 아래로 연락 주세요.</span>
+    <span class="lang-en">For the list, or anything on the day itself, please call:</span>
     <div class="contact" id="contact"></div>
   </div>
 
@@ -185,7 +188,7 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
   // Fill both in and the footer shows a tappable number. Left blank, it falls
   // back to "contact the bride or groom" - better than printing a number that
   // rings the wrong phone.
-  var CONTACT = { name: "", phone: "" };
+  var CONTACT = { name: "김용락", phone: "010-9096-5986", ko: "신랑 친구", en: "the groom's friend" };
 
   var GROUPS = [
     {key:'both', ko:'왕복',      en:'Both ways',   test:function(r){ return r.toDaejeon && r.toSeoul; }},
@@ -241,8 +244,9 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
     var el = document.getElementById('contact');
     if (CONTACT.name && CONTACT.phone){
       var tel = CONTACT.phone.replace(/[^0-9+]/g, '');
-      el.innerHTML = '<span class="lang-ko">문의 · ' + CONTACT.name + ' <a href="tel:' + tel + '">' + CONTACT.phone + '</a></span>' +
-                     '<span class="lang-en">Contact · ' + CONTACT.name + ' <a href="tel:' + tel + '">' + CONTACT.phone + '</a></span>';
+      var link = '<a class="tel" href="tel:' + tel + '">' + CONTACT.phone + '</a>';
+      el.innerHTML = '<span class="lang-ko">' + CONTACT.name + ' <span class="role">(' + CONTACT.ko + ')</span><br>' + link + '</span>' +
+                     '<span class="lang-en">' + CONTACT.name + ' <span class="role">(' + CONTACT.en + ')</span><br>' + link + '</span>';
     } else {
       el.innerHTML = '<span class="lang-ko">신랑·신부에게 연락 주세요.</span>' +
                      '<span class="lang-en">Please contact the bride or groom.</span>';
