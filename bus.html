@@ -45,9 +45,6 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 .total-n{font-size:30px;color:#3a3733;margin-top:6px;line-height:1}
 .total-n span{font-size:15px;color:#6f6a63;margin-left:2px}
 
-.search{width:100%;box-sizing:border-box;border:none;border-radius:4px;background:#e7e3dd;padding:14px 16px;font-size:16px;color:#3a3733;margin-bottom:8px}
-.search::placeholder{color:#a09a92}
-.search:focus{outline:2px solid rgba(138,122,106,.45);outline-offset:-2px}
 .search-note{font-size:13.5px;color:#a09a92;margin:0 0 22px}
 
 .group{margin-bottom:26px}
@@ -57,7 +54,6 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 .row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 2px;border-bottom:1px solid rgba(58,55,51,.07)}
 .row-name{font-size:16.5px;color:#3a3733}
 .row-extra{flex:none;font-size:13.5px;color:#8a7a6a}
-.empty{font-size:14.5px;color:#a09a92;padding:16px 2px}
 
 .notice{background:#fdfcfa;border:1px solid rgba(138,122,106,.4);border-radius:4px;padding:18px 20px;margin-bottom:24px}
 .notice p{margin:0;font-size:15px;line-height:1.8;color:#4a453f}
@@ -131,10 +127,9 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
     </div>
   </div>
 
-  <input class="search" id="search" type="search" autocomplete="off" placeholder="성함 검색">
   <p class="search-note">
-    <span class="lang-ko">이름 일부만 입력해도 찾을 수 있습니다. 인원은 동반인을 포함한 수입니다.</span>
-    <span class="lang-en">Part of a name is enough. Totals include accompanying guests.</span>
+    <span class="lang-ko">인원은 동반인을 포함한 수입니다.</span>
+    <span class="lang-en">Totals include accompanying guests.</span>
   </p>
 
   <div id="groups"></div>
@@ -211,18 +206,13 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
   var sorted = RIDERS.slice().sort(function(a, b){ return a.name.localeCompare(b.name, 'ko'); });
 
   var groupsEl = document.getElementById('groups');
-  var search = document.getElementById('search');
 
   function render(){
-    var q = search.value.trim().toLowerCase();
-    var html = '', shown = 0;
+    var html = '';
 
     GROUPS.forEach(function(g){
-      var rows = sorted.filter(g.test).filter(function(r){
-        return !q || r.name.toLowerCase().indexOf(q) !== -1;
-      });
-      if (!rows.length) return;                    // a group with no hits just steps aside
-      shown += rows.length;
+      var rows = sorted.filter(g.test);
+      if (!rows.length) return;                    // an empty group just steps aside
       html += '<div class="group"><div class="group-head">' +
         '<div class="group-name"><span class="lang-ko">' + g.ko + '</span><span class="lang-en">' + g.en + '</span></div>' +
         '<div class="group-count">' +
@@ -242,14 +232,9 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
       html += '</div>';
     });
 
-    if (!shown){
-      html = '<p class="empty"><span class="lang-ko">“' + search.value.trim() + '” 와(과) 일치하는 이름이 없습니다.</span>' +
-             '<span class="lang-en">No name matches &ldquo;' + search.value.trim() + '&rdquo;.</span></p>';
-    }
     groupsEl.innerHTML = html;
   }
 
-  search.addEventListener('input', render);
   render();
 
   (function(){
@@ -267,7 +252,6 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
   function setLang(l){
     root.dataset.lang = l;
     root.lang = l;
-    search.placeholder = l === 'en' ? 'Search a name' : '성함 검색';
   }
   document.getElementById('btnKo').addEventListener('click', function(){ setLang('ko'); });
   document.getElementById('btnEn').addEventListener('click', function(){ setLang('en'); });
