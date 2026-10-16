@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전세버스 탑승 명단 · 다원 ♥ Hui Zhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#d8d5cf;color:#3a3733;font-family:'Gowun Batang','Cormorant Garamond',serif;-webkit-font-smoothing:antialiased}
+a{color:#8a7a6a;text-decoration:none}
+input{font-family:'Gowun Batang',serif}
+button{font-family:'Gowun Batang',serif}
+html[data-lang="en"] .lang-ko{display:none}
+html[data-lang="ko"] .lang-en{display:none}
+
+.phone{max-width:450px;margin:0 auto;background:#efedea;position:relative;box-shadow:0 0 40px rgba(0,0,0,.12);min-height:100svh;box-sizing:border-box;padding:20px 22px 56px}
+
+.hud{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:450px;height:0;z-index:70;pointer-events:none}
+.hud-row{position:absolute;top:12px;right:14px;display:flex;align-items:center;gap:8px;pointer-events:auto}
+.lang-toggle{display:flex;gap:2px;background:rgba(253,252,250,.82);box-shadow:0 1px 6px rgba(0,0,0,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:999px;padding:3px}
+.lang-toggle button{border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:transparent;color:#6f6a63}
+html[data-lang="ko"] #btnKo{background:#3a3733;color:#fff}
+html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
+
+.back{display:inline-block;font-size:14.5px;color:#8a7a6a;margin-bottom:26px}
+.label{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.32em;color:#a4988a}
+.title{font-size:26px;color:#3a3733;margin:10px 0 0}
+.rule{width:26px;height:1px;background:#a4988a;margin:18px 0 26px}
+
+.card{background:#e7e3dd;border-radius:4px;padding:20px 22px;margin-bottom:12px}
+.leg{display:flex;gap:14px;align-items:baseline}
+.leg + .leg{margin-top:16px;padding-top:16px;border-top:1px solid rgba(58,55,51,.1)}
+.leg-when{flex:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#8a7a6a;width:54px}
+.leg-main{flex:1;min-width:0}
+.leg-time{font-size:17.5px;color:#3a3733}
+.leg-place{font-size:15px;color:#4a453f;margin-top:3px;line-height:1.6}
+.leg-link{display:inline-block;margin-top:8px;font-size:13.5px;padding:7px 13px;border-radius:999px;background:#fdfcfa;color:#4a453f}
+.date-note{font-size:14px;color:#6f6a63;margin:0 0 14px;line-height:1.7}
+
+.totals{display:flex;gap:10px;margin-bottom:24px}
+.total{flex:1;background:#fdfcfa;border-radius:4px;padding:16px 14px;text-align:center}
+.total-k{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;color:#a4988a}
+.total-n{font-size:30px;color:#3a3733;margin-top:6px;line-height:1}
+.total-n span{font-size:15px;color:#6f6a63;margin-left:2px}
+
+.search{width:100%;box-sizing:border-box;border:none;border-radius:4px;background:#e7e3dd;padding:14px 16px;font-size:16px;color:#3a3733;margin-bottom:8px}
+.search::placeholder{color:#a09a92}
+.search:focus{outline:2px solid rgba(138,122,106,.45);outline-offset:-2px}
+.search-note{font-size:13.5px;color:#a09a92;margin:0 0 22px}
+
+.group{margin-bottom:26px}
+.group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:9px;border-bottom:1px solid rgba(58,55,51,.14)}
+.group-name{font-size:16px;color:#3a3733}
+.group-count{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#8a7a6a;flex:none}
+.row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 2px;border-bottom:1px solid rgba(58,55,51,.07)}
+.row-name{font-size:16.5px;color:#3a3733}
+.row-extra{flex:none;font-size:13.5px;color:#8a7a6a}
+.empty{font-size:14.5px;color:#a09a92;padding:16px 2px}
+
+.notice{background:#fdfcfa;border:1px solid rgba(138,122,106,.4);border-radius:4px;padding:18px 20px;margin-bottom:24px}
+.notice p{margin:0;font-size:15px;line-height:1.8;color:#4a453f}
+.notice p + p{margin-top:9px}
+.notice .hi{color:#8a7a6a}
+
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid rgba(58,55,51,.12);font-size:14.5px;line-height:1.85;color:#6f6a63}
+.foot a{color:#4a453f;text-decoration:underline}
+.contact{margin-top:10px;font-size:15.5px;color:#3a3733}
+</style>
+</head>
+<body>
+
+<div class="hud"><div class="hud-row">
+  <div class="lang-toggle">
+    <button id="btnKo" type="button">KO</button><button id="btnEn" type="button">EN</button>
+  </div>
+</div></div>
+
+<div class="phone">
+
+  <a class="back" href="./">← <span class="lang-ko">청첩장으로 돌아가기</span><span class="lang-en">Back to the invitation</span></a>
+
+  <div class="label">SHUTTLE BUS</div>
+  <h1 class="title"><span class="lang-ko">탑승 확정 명단</span><span class="lang-en">Confirmed riders</span></h1>
+  <div class="rule"></div>
+
+  <p class="date-note">
+    <span class="lang-ko">2026년 10월 24일 토요일 · 서울 ↔ 대전</span>
+    <span class="lang-en">Saturday, 24 October 2026 · Seoul ↔ Daejeon</span>
+  </p>
+
+  <div class="card">
+    <div class="leg">
+      <div class="leg-when"><span class="lang-ko">갈 때</span><span class="lang-en">OUT</span></div>
+      <div class="leg-main">
+        <div class="leg-time"><span class="lang-ko">오전 8:00</span><span class="lang-en">8:00 AM</span></div>
+        <div class="leg-place"><span class="lang-ko">온수역 6번 출구 출발</span><span class="lang-en">Departs Onsu Station Exit 6</span></div>
+        <a class="leg-link" href="https://map.naver.com/p/search/%EC%98%A8%EC%88%98%EC%97%AD%206%EB%B2%88%20%EC%B6%9C%EA%B5%AC" target="_blank" rel="noopener"><span class="lang-ko">지도 보기</span><span class="lang-en">Open map</span> →</a>
+      </div>
+    </div>
+    <div class="leg">
+      <div class="leg-when"><span class="lang-ko">올 때</span><span class="lang-en">BACK</span></div>
+      <div class="leg-main">
+        <div class="leg-time"><span class="lang-ko">오후 2:00</span><span class="lang-en">2:00 PM</span></div>
+        <div class="leg-place"><span class="lang-ko">카이스트 노천극장 입구 출발</span><span class="lang-en">Departs the KAIST Amphitheater entrance</span></div>
+        <a class="leg-link" href="https://naver.me/xZVyTxdZ" target="_blank" rel="noopener"><span class="lang-ko">지도 보기</span><span class="lang-en">Open map</span> →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <p>
+      <span class="lang-ko">신청하신 분은 <span class="hi">모두 탑승이 확정</span>되었습니다. 좌석이 모두 차서 추가 신청은 받지 않습니다.</span>
+      <span class="lang-en">Everyone who signed up <span class="hi">has a confirmed seat</span>. The bus is full, so no further sign-ups can be taken.</span>
+    </p>
+    <p>
+      <span class="lang-ko">당일 <span class="hi">오전 8시까지 승차를 완료</span>해 주세요.</span>
+      <span class="lang-en">Please be <span class="hi">on board by 8:00 AM</span> on the day.</span>
+    </p>
+  </div>
+
+  <div class="totals">
+    <div class="total">
+      <div class="total-k"><span class="lang-ko">대전행 · 갈 때</span><span class="lang-en">TO DAEJEON</span></div>
+      <div class="total-n" id="toDaejeonTotal">0<span class="lang-ko">명</span></div>
+    </div>
+    <div class="total">
+      <div class="total-k"><span class="lang-ko">서울행 · 올 때</span><span class="lang-en">TO SEOUL</span></div>
+      <div class="total-n" id="toSeoulTotal">0<span class="lang-ko">명</span></div>
+    </div>
+  </div>
+
+  <input class="search" id="search" type="search" autocomplete="off" placeholder="성함 검색">
+  <p class="search-note">
+    <span class="lang-ko">이름 일부만 입력해도 찾을 수 있습니다. 인원은 동반인을 포함한 수입니다.</span>
+    <span class="lang-en">Part of a name is enough. Totals include accompanying guests.</span>
+  </p>
+
+  <div id="groups"></div>
+
+  <div class="foot">
+    <span class="lang-ko">명단에 이름이 없거나 변경이 필요하시면 연락 주세요.</span>
+    <span class="lang-en">If your name is missing or you need changes, please get in touch.</span>
+    <div class="contact" id="contact"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // ---- the list. Edit here and nothing else. -----------------------------
+  // name       as it should appear
+  // companions people travelling with them, NOT counting themselves
+  // toDaejeon  on the 8:00 AM bus out of Seoul
+  // toSeoul    on the 2:00 PM bus back
+  var RIDERS = [
+    {name:"조○은", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"이○승", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"오○미", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"윤○덕", companions:1, toDaejeon:true,  toSeoul:true},
+    {name:"주○분", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"이○환", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"김○옥", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"박○복", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"이○희", companions:1, toDaejeon:true,  toSeoul:true},
+    {name:"강○일", companions:1, toDaejeon:true,  toSeoul:true},
+    {name:"Zhi L.", companions:0, toDaejeon:true, toSeoul:true},
+    {name:"김○영", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"이○숙", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"김○락", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"배○희", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"조○연", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"서○구", companions:1, toDaejeon:true,  toSeoul:true},
+    {name:"이○옥", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"양○석", companions:1, toDaejeon:true,  toSeoul:true},
+    {name:"박○웅", companions:1, toDaejeon:true,  toSeoul:true},
+    {name:"이○은", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"박○순", companions:7, toDaejeon:true,  toSeoul:true},
+    {name:"백○범", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"송○훈", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"드○곤", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"홍○욱", companions:0, toDaejeon:true,  toSeoul:true},
+    {name:"추○원", companions:0, toDaejeon:true,  toSeoul:false},
+    {name:"김○현", companions:0, toDaejeon:true,  toSeoul:false},
+    {name:"김○진", companions:0, toDaejeon:false, toSeoul:true}
+  ];
+
+  // ---- who to call about the bus ----------------------------------------
+  // Fill both in and the footer shows a tappable number. Left blank, it falls
+  // back to "contact the bride or groom" - better than printing a number that
+  // rings the wrong phone.
+  var CONTACT = { name: "", phone: "" };
+
+  var GROUPS = [
+    {key:'both', ko:'왕복',      en:'Both ways',   test:function(r){ return r.toDaejeon && r.toSeoul; }},
+    {key:'out',  ko:'갈 때만',   en:'Outbound only', test:function(r){ return r.toDaejeon && !r.toSeoul; }},
+    {key:'back', ko:'올 때만',   en:'Return only',  test:function(r){ return !r.toDaejeon && r.toSeoul; }}
+  ];
+
+  var root = document.documentElement;
+  function seats(r){ return 1 + (r.companions || 0); }
+  function sum(list){ return list.reduce(function(n, r){ return n + seats(r); }, 0); }
+
+  // totals are derived, never typed in, so editing RIDERS is the only step
+  document.getElementById('toDaejeonTotal').firstChild.nodeValue =
+    sum(RIDERS.filter(function(r){ return r.toDaejeon; }));
+  document.getElementById('toSeoulTotal').firstChild.nodeValue =
+    sum(RIDERS.filter(function(r){ return r.toSeoul; }));
+
+  var sorted = RIDERS.slice().sort(function(a, b){ return a.name.localeCompare(b.name, 'ko'); });
+
+  var groupsEl = document.getElementById('groups');
+  var search = document.getElementById('search');
+
+  function render(){
+    var q = search.value.trim().toLowerCase();
+    var html = '', shown = 0;
+
+    GROUPS.forEach(function(g){
+      var rows = sorted.filter(g.test).filter(function(r){
+        return !q || r.name.toLowerCase().indexOf(q) !== -1;
+      });
+      if (!rows.length) return;                    // a group with no hits just steps aside
+      shown += rows.length;
+      html += '<div class="group"><div class="group-head">' +
+        '<div class="group-name"><span class="lang-ko">' + g.ko + '</span><span class="lang-en">' + g.en + '</span></div>' +
+        '<div class="group-count">' +
+          '<span class="lang-ko">' + rows.length + '팀 · ' + sum(rows) + '명</span>' +
+          '<span class="lang-en">' + rows.length + (rows.length > 1 ? ' parties · ' : ' party · ') + sum(rows) + '</span>' +
+        '</div></div>';
+      rows.forEach(function(r){
+        html += '<div class="row"><div class="row-name">' + r.name + '</div>';
+        if (r.companions > 0){
+          html += '<div class="row-extra">' +
+            '<span class="lang-ko">본인 외 ' + r.companions + '명</span>' +
+            '<span class="lang-en">+' + r.companions + ' guest' + (r.companions > 1 ? 's' : '') + '</span>' +
+            '</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+
+    if (!shown){
+      html = '<p class="empty"><span class="lang-ko">“' + search.value.trim() + '” 와(과) 일치하는 이름이 없습니다.</span>' +
+             '<span class="lang-en">No name matches &ldquo;' + search.value.trim() + '&rdquo;.</span></p>';
+    }
+    groupsEl.innerHTML = html;
+  }
+
+  search.addEventListener('input', render);
+  render();
+
+  (function(){
+    var el = document.getElementById('contact');
+    if (CONTACT.name && CONTACT.phone){
+      var tel = CONTACT.phone.replace(/[^0-9+]/g, '');
+      el.innerHTML = '<span class="lang-ko">문의 · ' + CONTACT.name + ' <a href="tel:' + tel + '">' + CONTACT.phone + '</a></span>' +
+                     '<span class="lang-en">Contact · ' + CONTACT.name + ' <a href="tel:' + tel + '">' + CONTACT.phone + '</a></span>';
+    } else {
+      el.innerHTML = '<span class="lang-ko">신랑·신부에게 연락 주세요.</span>' +
+                     '<span class="lang-en">Please contact the bride or groom.</span>';
+    }
+  })();
+
+  function setLang(l){
+    root.dataset.lang = l;
+    root.lang = l;
+    search.placeholder = l === 'en' ? 'Search a name' : '성함 검색';
+  }
+  document.getElementById('btnKo').addEventListener('click', function(){ setLang('ko'); });
+  document.getElementById('btnEn').addEventListener('click', function(){ setLang('en'); });
+})();
+</script>
+</body>
+</html>
