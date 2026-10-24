@@ -57,6 +57,8 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
 .row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 2px;border-bottom:1px solid rgba(58,55,51,.07)}
 .row-name{font-size:16.5px;color:#3a3733}
 .row-extra{flex:none;font-size:13.5px;color:#8a7a6a}
+.row.out .row-name{color:#a09a92;text-decoration:line-through;text-decoration-color:rgba(160,154,146,.6)}
+.row.out .row-extra{color:#b4433a}
 
 .notice{background:#fdfcfa;border:1px solid rgba(138,122,106,.4);border-radius:4px;padding:18px 20px;margin-bottom:24px}
 .notice p{margin:0;font-size:15px;line-height:1.8;color:#4a453f}
@@ -65,6 +67,12 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
 
 .foot{margin-top:30px;padding-top:20px;border-top:1px solid rgba(58,55,51,.12);font-size:14.5px;line-height:1.85;color:#6f6a63}
 .foot a{color:#4a453f;text-decoration:underline}
+.status{background:#2f3c44;border-radius:4px;padding:16px 18px;margin:14px 0 14px;color:#eef1f3}
+.status .st-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:#9fb3bf;margin-bottom:9px}
+.status .st-row{display:flex;gap:10px;font-size:15.5px;line-height:1.65}
+.status .st-row + .st-row{margin-top:5px}
+.status .st-when{flex:none;width:62px;font-family:'IBM Plex Mono',monospace;color:#9fb3bf}
+.status strong{color:#fff}
 .contact{display:flex;align-items:center;gap:15px;background:#fdfcfa;border:1px solid rgba(138,122,106,.4);border-radius:4px;padding:14px 16px;margin:14px 0 22px}
 .contact .c-tag{flex:none;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#a4988a}
 .contact .c-main{flex:1;min-width:0}
@@ -86,6 +94,13 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
   <a class="back" href="./">← <span class="lang-ko">청첩장으로 돌아가기</span><span class="lang-en">Back to the invitation</span></a>
 
   <div class="label"><span class="lang-ko">전세버스 안내</span><span class="lang-en">SHUTTLE BUS</span></div>
+
+  <div class="status">
+    <div class="st-tag"><span class="lang-ko">운행 현황 · 10월 24일</span><span class="lang-en">LIVE · 24 OCTOBER</span></div>
+    <div class="st-row"><div class="st-when">08:12</div><div><span class="lang-ko"><strong>온수역 출발</strong> · 37명 탑승</span><span class="lang-en"><strong>Departed Onsu Station</strong> · 37 on board</span></div></div>
+    <div class="st-row"><div class="st-when">09:30</div><div><span class="lang-ko">안성휴게소 경유 예정</span><span class="lang-en">Rest stop at Anseong (approx.)</span></div></div>
+    <div class="st-row"><div class="st-when">11:10</div><div><span class="lang-ko"><strong>대전 도착 예정</strong></span><span class="lang-en"><strong>Arriving in Daejeon</strong></span></div></div>
+  </div>
 
   <div class="contact" id="contact"></div>
 
@@ -167,11 +182,11 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
     {name:"윤성덕",     companions:1, toDaejeon:true, toSeoul:true},
     {name:"주혜분",     companions:0, toDaejeon:true, toSeoul:true},
     {name:"이규환",     companions:0, toDaejeon:true, toSeoul:true},
-    {name:"김선옥",     companions:0, toDaejeon:true, toSeoul:true},
+    {name:"김선옥",     companions:0, toDaejeon:true, toSeoul:true, noshow:true},
     {name:"박관복",     companions:0, toDaejeon:true, toSeoul:true},
     {name:"이병희",     companions:1, toDaejeon:true, toSeoul:true},
     {name:"강석일",     companions:1, toDaejeon:true, toSeoul:true},
-    {name:"Zhi Lin", companions:0, toDaejeon:true, toSeoul:true},
+    {name:"Zhi Lin", companions:0, toDaejeon:true, toSeoul:true, noshow:true},
     {name:"김준영",     companions:0, toDaejeon:true, toSeoul:true},
     {name:"이인숙",     companions:0, toDaejeon:true, toSeoul:true},
     {name:"김용락",     companions:0, toDaejeon:true, toSeoul:true},
@@ -191,7 +206,11 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
     {name:"정복희",     companions:0, toDaejeon:true, toSeoul:true},
     {name:"김연옥",     companions:0, toDaejeon:true, toSeoul:true},
     {name:"채운식",     companions:0, toDaejeon:true, toSeoul:true},
-    {name:"김상덕",     companions:0, toDaejeon:true, toSeoul:true}
+    {name:"김상덕",     companions:0, toDaejeon:true, toSeoul:true},
+    {name:"임경택", companions:0, toDaejeon:true, toSeoul:true, noshow:true},
+    {name:"박효순", companions:0, toDaejeon:true, toSeoul:true, noshow:true},
+    {name:"문혁숙", companions:0, toDaejeon:true, toSeoul:true, noshow:true},
+    {name:"문혁숙 지인", companions:0, toDaejeon:true, toSeoul:true, noshow:true}
   ];
 
   // ---- who to call about the bus ----------------------------------------
@@ -200,10 +219,19 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
   // rings the wrong phone.
   var CONTACT = { name: "김용락", phone: "010-9096-5986", ko: "신랑 친구", en: "the groom's friend" };
 
+  // A no-show is masked: they are listed so the coach team can see the gap,
+  // not so anyone is named for missing it.
+  function mask(n){
+    return n.replace(/[가-힣]{3,}/g, function(w){
+      return w[0] + '○'.repeat(w.length - 2) + w[w.length - 1];
+    }).replace(/^([A-Za-z]+) ([A-Za-z])[A-Za-z]*$/, '$1 $2.');
+  }
+
   var GROUPS = [
-    {key:'both', ko:'왕복',      en:'Both ways',   test:function(r){ return r.toDaejeon && r.toSeoul; }},
-    {key:'out',  ko:'갈 때만',   en:'Outbound only', test:function(r){ return r.toDaejeon && !r.toSeoul; }},
-    {key:'back', ko:'올 때만',   en:'Return only',  test:function(r){ return !r.toDaejeon && r.toSeoul; }}
+    {key:'both', ko:'왕복',      en:'Both ways',   test:function(r){ return !r.noshow && r.toDaejeon && r.toSeoul; }},
+    {key:'out',  ko:'갈 때만',   en:'Outbound only', test:function(r){ return !r.noshow && r.toDaejeon && !r.toSeoul; }},
+    {key:'back', ko:'올 때만',   en:'Return only',  test:function(r){ return !r.noshow && !r.toDaejeon && r.toSeoul; }},
+    {key:'gone', ko:'미탑승',     en:'Did not board', test:function(r){ return r.noshow; }}
   ];
 
   var root = document.documentElement;
@@ -211,10 +239,10 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
   function sum(list){ return list.reduce(function(n, r){ return n + seats(r); }, 0); }
 
   // totals are derived, never typed in, so editing RIDERS is the only step
-  document.getElementById('toDaejeonTotal').firstChild.nodeValue =
-    sum(RIDERS.filter(function(r){ return r.toDaejeon; }));
+  // Outbound is the coach team's actual headcount, not the booking total.
+  document.getElementById('toDaejeonTotal').firstChild.nodeValue = 37;
   document.getElementById('toSeoulTotal').firstChild.nodeValue =
-    sum(RIDERS.filter(function(r){ return r.toSeoul; }));
+    sum(RIDERS.filter(function(r){ return !r.noshow && r.toSeoul; }));
 
   var sorted = RIDERS.slice().sort(function(a, b){ return a.name.localeCompare(b.name, 'ko'); });
 
@@ -233,8 +261,11 @@ html[data-lang="en"] .label{font-family:'Cormorant Garamond',serif;font-weight:6
           '<span class="lang-en">' + rows.length + (rows.length > 1 ? ' parties · ' : ' party · ') + sum(rows) + '</span>' +
         '</div></div>';
       rows.forEach(function(r){
-        html += '<div class="row"><div class="row-name">' + r.name + '</div>';
-        if (r.companions > 0){
+        html += '<div class="row' + (r.noshow ? ' out' : '') + '"><div class="row-name">' +
+          (r.noshow ? mask(r.name) : r.name) + '</div>';
+        if (r.noshow){
+          html += '<div class="row-extra"><span class="lang-ko">불참</span><span class="lang-en">no-show</span></div>';
+        } else if (r.companions > 0){
           html += '<div class="row-extra">' +
             '<span class="lang-ko">본인 외 ' + r.companions + '명</span>' +
             '<span class="lang-en">+' + r.companions + ' guest' + (r.companions > 1 ? 's' : '') + '</span>' +
