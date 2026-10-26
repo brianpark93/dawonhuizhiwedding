@@ -78,11 +78,6 @@ html[data-lang="en"] #btnEn{background:#3a3733;color:#fff}
 .cal-cell.highlight{color:#fff;background:#8a7a6a}
 .cal-footer{margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08);font-size:15px;color:#6f6a63;max-width:340px}
 
-.rain-note{display:flex;gap:12px;align-items:flex-start;background:#e4e8ea;border:1px solid rgba(86,106,120,.35);border-radius:4px;padding:16px 18px;margin-bottom:28px}
-.rain-note .ico{flex:none;font-size:20px;line-height:1.35}
-.rain-note p{margin:0;font-size:15.5px;line-height:1.75;color:#3d4851}
-.rain-note strong{color:#27333b}
-.venue-rain{margin-top:10px;font-size:14.5px;line-height:1.7;color:#4a5a66}
 .venue-name{font-size:19px;color:#4a453f;margin-bottom:6px}
 .venue-addr{font-size:16px;color:#6f6a63;line-height:1.8}
 .link-btn{margin-top:22px;border:none;background:none;padding:0;cursor:pointer;font-size:16px;color:#4a453f;text-decoration:underline;text-align:left;display:block}
@@ -170,6 +165,11 @@ html[data-lang="en"] .bus-title{font-family:'IBM Plex Mono',monospace;font-size:
 .form-error.show{display:block}
 .rsvp-thanks{display:none;max-width:460px;text-align:left;animation:fadeUp .5s ease}
 .rsvp-thanks.show{display:block}
+.after-note{background:#f4f1ec;border:1px solid rgba(138,122,106,.3);border-radius:4px;padding:26px 24px 24px;margin-bottom:30px;text-align:center}
+.after-note .an-script{font-family:'Alex Brush',cursive;font-size:40px;color:#8a7a6a;line-height:1.1;margin-bottom:4px}
+.after-note .an-head{font-size:17px;font-weight:700;color:#3a3733;margin-bottom:14px}
+.after-note p{margin:0;font-size:15.5px;line-height:1.95;color:#4a453f;white-space:pre-line}
+.after-note .an-sign{margin-top:18px;font-size:14.5px;letter-spacing:.04em;color:#8a7a6a}
 .thanks-cursive{font-family:'Alex Brush',cursive;font-size:40px;color:#a4988a;margin-bottom:14px}
 .thanks-body{font-size:16.5px;line-height:1.9;color:#4a453f;white-space:pre-line}
 .edit-btn{margin-top:22px;border:none;background:none;color:#8a7a6a;font-size:14.5px;text-decoration:underline;cursor:pointer;padding:0}
@@ -280,12 +280,22 @@ html.switching .pager{opacity:0}
 <section class="page no-scrollbar">
   <div class="label">LETTER</div>
   <div class="center-pad" style="padding:72px 22px">
-    <div class="rain-note">
-      <div class="ico">☂</div>
+    <div class="after-note">
+      <div class="an-script">Thank you</div>
+      <div class="an-head"><span class="lang-ko">함께해 주셔서 감사합니다</span><span class="lang-en">Thank you for being there</span></div>
       <p>
-        <span class="lang-ko">오늘 비 예보가 있습니다. 예식장인 <strong>노천극장은 야외</strong>이니 <strong>우산과 따뜻한 겉옷</strong>을 꼭 챙겨 주세요.</span>
-        <span class="lang-en">Rain is forecast today. The ceremony is at an <strong>open-air amphitheatre</strong>, so please <strong>bring an umbrella and dress warmly</strong>.</span>
+        <span class="lang-ko">궂은 날씨에도 먼 걸음 해주신 덕분에
+더없이 따뜻한 하루를 보냈습니다.
+
+보내주신 축하와 마음 오래 간직하며
+서로 아끼고 예쁘게 잘 살겠습니다.</span>
+        <span class="lang-en">You came all that way, and in the rain.
+It made the day warmer than we could have hoped.
+
+We will keep your kindness with us,
+and take good care of each other.</span>
       </p>
+      <div class="an-sign"><span class="lang-ko">다원 · Hui Zhi 드림</span><span class="lang-en">With love, Dawon &amp; Hui Zhi</span></div>
     </div>
     <div class="rule"></div>
     <p class="letter-body lang-ko">서로에게 가장 좋은 친구이자
@@ -344,7 +354,6 @@ as we celebrate the start of our life together.</p>
   <div class="center-pad">
     <div class="venue-name"><span class="lang-ko">카이스트 노천극장 (W9)</span><span class="lang-en">KAIST Amphitheater (W9)</span></div>
     <div class="venue-addr"><span class="lang-ko">대전광역시 유성구 대학로 291</span><span class="lang-en">291 Daehak-ro, Yuseong-gu, Daejeon, South Korea</span></div>
-    <div class="venue-rain"><span class="lang-ko">☂ 오늘 비 예보 · 야외 예식장이니 우산과 따뜻한 옷을 준비해 주세요.</span><span class="lang-en">☂ Rain forecast today - the venue is open-air; bring an umbrella and dress warmly.</span></div>
     <button class="link-btn" id="openMapBtn"><span class="lang-ko">오시는 길 →</span><span class="lang-en">Directions →</span></button>
     <div style="margin-top:14px">
       <button class="link-btn" id="parkingToggleBtn" style="margin-top:0"><span class="lang-ko">주차 안내 →</span><span class="lang-en">Parking →</span></button>
